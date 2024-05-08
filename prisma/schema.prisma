@@ -1,0 +1,97 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Blog{
+  id             String      @id@default(uuid())
+  image          String 
+  title          String     @unique
+  description    String 
+  createdAt      DateTime   @default(now())
+  updatedAt      DateTime   @updatedAt
+}
+
+model Partners {
+  id          String        @id@default(uuid())
+  image       String
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+}
+
+model Awards {
+  id             String          @id@default(uuid())
+  title          String          @unique
+  description    String
+  image          String
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
+}
+
+model Review {
+  id             String          @id@default(uuid())
+  video          String
+  image          String
+  name           String          
+  company_name   String
+  position       String
+  review_text    String
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
+}
+
+model Contact {
+  id              String       @id@default(uuid())
+  name            String    
+  company_name    String
+  email           String       @unique
+  phone_number    String      
+  service         String
+  description     String
+  take_info       String 
+  is_Called       Boolean? @default(false)
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
+}
+
+model Faq {
+  id             String  @id@default(uuid())
+  question       String 
+  answer         String
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
+}
+
+model Career {
+  id             String        @id@default(uuid())
+  name           String 
+  description    String
+  careers        CareerApply[]
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
+}
+
+model CareerApply {
+  id                String    @id@default(uuid())
+  first_name        String 
+  last_name         String 
+  phone_number      String 
+  email             String   @unique
+  careers           Career   @relation(fields:[career_id],references:[id],onUpdate:Cascade)
+  career_id         String 
+  resume            String
+  cover_letter      String
+  is_Called         Boolean? @default(false)
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
+}
