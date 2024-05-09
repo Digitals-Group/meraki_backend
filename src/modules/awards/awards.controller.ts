@@ -31,7 +31,7 @@ export class AwardsController {
   @ApiOkResponse({ type: AwardEntity, isArray: true })
   @ApiQuery({ name: 'take', type: Number, required: false })
   @ApiQuery({ name: 'skip', type: Number, required: false })
-  @ApiQuery({ name: '', type: String, required: false })
+  @ApiQuery({ name: 'title', type: String, required: false })
   findAll(@Query(new PaginationPipe()) query: PaginationInterface) {
     return this.awardsService.findAll(query);
   }

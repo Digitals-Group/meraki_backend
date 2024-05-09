@@ -8,6 +8,7 @@ import {
 import { FileInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
 import { AppService } from './app.service';
+import { ApiBody, ApiConsumes, ApiOperation } from '@nestjs/swagger';
 
 @Controller()
 export class AppController {
@@ -19,6 +20,20 @@ export class AppController {
   }
 
   @Post('upload')
+  @ApiOperation({ summary: 'Upload a single file' })
+  @ApiConsumes('multipart/form-data')
+  @ApiBody({
+    required: true,
+    schema: {
+      type: 'object',
+      properties: {
+        file: {
+          type: 'string',
+          format: 'binary',
+        },
+      },
+    },
+  })
   @UseInterceptors(
     FileInterceptor('file', {
       storage: diskStorage({
@@ -29,7 +44,7 @@ export class AppController {
       }),
     }),
   )
-  async uploadFile(@UploadedFile() file: Express.Multer.File) {
+  async local(@UploadedFile() file: Express.Multer.File) {
     return {
       statusCode: 200,
       data: file.path,

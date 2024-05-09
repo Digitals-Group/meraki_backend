@@ -2,11 +2,11 @@ import { Injectable } from '@nestjs/common';
 import { CreatePartnerDto } from './dto/create-partner.dto';
 import { UpdatePartnerDto } from './dto/update-partner.dto';
 import { PaginationInterface } from 'src/common/interface';
-import { PrismaClient } from '@prisma/client';
+import { PrismaService } from 'src/prisma/prisma.service';
 
 @Injectable()
 export class PartnersService {
-  constructor(private readonly prisma: PrismaClient) {}
+  constructor(private readonly prisma: PrismaService) {}
   create(createPartnerDto: CreatePartnerDto) {
     return this.prisma.partners.create({ data: createPartnerDto });
   }
@@ -17,10 +17,10 @@ export class PartnersService {
       take: +query.take,
       orderBy: [
         {
-          createdAt: 'asc',
+          image: query.image,
         },
         {
-          image: query.image,
+          createdAt: 'asc',
         },
       ],
     });

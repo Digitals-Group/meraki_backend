@@ -2,11 +2,11 @@ import { Injectable } from '@nestjs/common';
 import { CreateReviewDto } from './dto/create-review.dto';
 import { UpdateReviewDto } from './dto/update-review.dto';
 import { PaginationInterface } from 'src/common/interface';
-import { PrismaClient } from '@prisma/client';
+import { PrismaService } from 'src/prisma/prisma.service';
 
 @Injectable()
 export class ReviewService {
-  constructor(private readonly prisma: PrismaClient) {}
+  constructor(private readonly prisma: PrismaService) {}
   create(createReviewDto: CreateReviewDto) {
     return this.prisma.review.create({ data: createReviewDto });
   }
@@ -17,10 +17,10 @@ export class ReviewService {
       take: +query.take,
       orderBy: [
         {
-          createdAt: 'asc',
+          name: query.name,
         },
         {
-          name: query.name,
+          createdAt: 'asc',
         },
       ],
     });

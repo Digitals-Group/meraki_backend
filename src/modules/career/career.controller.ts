@@ -32,7 +32,7 @@ export class CareerController {
   @ApiOkResponse({ type: CareerEntity, isArray: true })
   @ApiQuery({ name: 'take', type: Number, required: false })
   @ApiQuery({ name: 'skip', type: Number, required: false })
-  @ApiQuery({ name: 'name', type: Number, required: false })
+  @ApiQuery({ name: 'name', type: String, required: false })
   findAll(@Query(new PaginationPipe()) query: PaginationInterface) {
     return this.careerService.findAll(query);
   }

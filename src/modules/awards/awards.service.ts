@@ -18,10 +18,10 @@ export class AwardsService {
       take: +query.take,
       orderBy: [
         {
-          createdAt: 'asc',
+          title: query.title,
         },
         {
-          title: query.name,
+          createdAt: 'asc',
         },
       ],
     });

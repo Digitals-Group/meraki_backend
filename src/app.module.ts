@@ -9,6 +9,8 @@ import { ContactModule } from './modules/contact/contact.module';
 import { FaqModule } from './modules/faq/faq.module';
 import { CareerModule } from './modules/career/career.module';
 import { CareerApplyModule } from './modules/career-apply/career-apply.module';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import { join } from 'path';
 
 @Module({
   imports: [
@@ -20,6 +22,9 @@ import { CareerApplyModule } from './modules/career-apply/career-apply.module';
     FaqModule,
     CareerModule,
     CareerApplyModule,
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, '..'),
+    }),
   ],
   controllers: [AppController],
   providers: [AppService],

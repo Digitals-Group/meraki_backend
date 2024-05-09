@@ -1,12 +1,12 @@
 import { Injectable } from '@nestjs/common';
 import { CreateContactDto } from './dto/create-contact.dto';
 import { UpdateContactDto } from './dto/update-contact.dto';
-import { Prisma, PrismaClient } from '@prisma/client';
 import { PaginationInterface } from 'src/common/interface';
+import { PrismaService } from 'src/prisma/prisma.service';
 
 @Injectable()
 export class ContactService {
-  constructor(private readonly prisma: PrismaClient) {}
+  constructor(private readonly prisma: PrismaService) {}
 
   create(createContactDto: CreateContactDto) {
     return this.prisma.contact.create({ data: createContactDto });
@@ -18,10 +18,10 @@ export class ContactService {
       take: +query.take,
       orderBy: [
         {
-          createdAt: 'asc',
+          name: query.name,
         },
         {
-          name: query.name,
+          createdAt: 'asc',
         },
       ],
     });

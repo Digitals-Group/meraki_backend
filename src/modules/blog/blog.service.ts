@@ -18,10 +18,10 @@ export class BlogService {
       take: +query.take,
       orderBy: [
         {
-          createdAt: 'asc',
+          title: query.title,
         },
         {
-          title: query.title,
+          createdAt: 'asc',
         },
       ],
     });

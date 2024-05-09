@@ -1,12 +1,12 @@
 import { Injectable } from '@nestjs/common';
 import { CreateFaqDto } from './dto/create-faq.dto';
 import { UpdateFaqDto } from './dto/update-faq.dto';
-import { PrismaClient } from '@prisma/client';
 import { PaginationInterface } from 'src/common/interface';
+import { PrismaService } from 'src/prisma/prisma.service';
 
 @Injectable()
 export class FaqService {
-  constructor(private readonly prisma: PrismaClient) {}
+  constructor(private readonly prisma: PrismaService) {}
   create(createFaqDto: CreateFaqDto) {
     return this.prisma.faq.create({ data: createFaqDto });
   }
@@ -17,10 +17,10 @@ export class FaqService {
       take: +query.take,
       orderBy: [
         {
-          createdAt: 'asc',
+          question: query.question,
         },
         {
-          question: query.question,
+          createdAt: 'asc',
         },
       ],
     });

@@ -18,10 +18,10 @@ export class CareerApplyService {
       take: +query.take,
       orderBy: [
         {
-          createdAt: 'asc',
+          first_name: query.first_name,
         },
         {
-          first_name: query.first_name,
+          createdAt: 'asc',
         },
       ],
     });
