@@ -8,16 +8,25 @@ import {
   Delete,
   Query,
   ParseUUIDPipe,
+  UseGuards,
 } from '@nestjs/common';
 import { AwardsService } from './awards.service';
 import { CreateAwardDto } from './dto/create-award.dto';
 import { UpdateAwardDto } from './dto/update-award.dto';
-import { ApiOkResponse, ApiQuery, ApiTags } from '@nestjs/swagger';
+import {
+  ApiBearerAuth,
+  ApiOkResponse,
+  ApiQuery,
+  ApiTags,
+} from '@nestjs/swagger';
 import { AwardEntity } from './entities/award.entity';
 import { PaginationInterface } from 'src/common/interface';
 import { PaginationPipe } from 'src/common/pipes/pagination.pipe';
+import { JwtAuthGuard } from 'src/common/guards/auth.guard';
 
 @Controller('awards')
+@ApiBearerAuth()
+@UseGuards(JwtAuthGuard)
 @ApiTags('Awards')
 export class AwardsController {
   constructor(private readonly awardsService: AwardsService) {}

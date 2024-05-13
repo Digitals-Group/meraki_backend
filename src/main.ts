@@ -3,11 +3,12 @@ import { AppModule } from './app.module';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { ValidationPipe } from '@nestjs/common';
 import { PrismaClientExceptionFilter } from './common/http-exception/http-exception-filter';
+import { ResponseInterceptor } from './common/middlewares/global.interceptors';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, { cors: true });
   app.useGlobalPipes(new ValidationPipe({ whitelist: true }));
-
+  app.useGlobalInterceptors(new ResponseInterceptor());
   const options = new DocumentBuilder()
     .setTitle('Meraki')
     .setDescription('Some description')

@@ -4,6 +4,7 @@ import { UpdateCareerDto } from './dto/update-career.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { PaginationPipe } from 'src/common/pipes/pagination.pipe';
 import { PaginationInterface } from 'src/common/interface';
+import { count } from 'console';
 
 @Injectable()
 export class CareerService {
@@ -13,19 +14,22 @@ export class CareerService {
     return this.prisma.career.create({ data: createCareerDto });
   }
 
-  findAll(query: PaginationInterface) {
-    return this.prisma.career.findMany({
-      skip: +query.skip,
-      take: +query.take,
-      orderBy: [
-        {
-          name: query.name,
-        },
-        {
-          createdAt: 'asc',
-        },
-      ],
-    });
+  async findAll(query: PaginationInterface) {
+    return {
+      data: await this.prisma.career.findMany({
+        skip: +query.skip,
+        take: +query.take,
+        orderBy: [
+          {
+            name: query.name,
+          },
+          {
+            createdAt: 'asc',
+          },
+        ],
+      }),
+      count: await this.prisma.career.count(),
+    };
   }
 
   findOne(id: string) {

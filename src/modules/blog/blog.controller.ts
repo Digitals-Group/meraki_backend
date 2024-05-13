@@ -8,17 +8,26 @@ import {
   Delete,
   Query,
   ParseUUIDPipe,
+  UseGuards,
 } from '@nestjs/common';
 import { BlogService } from './blog.service';
 import { CreateBlogDto } from './dto/create-blog.dto';
 import { UpdateBlogDto } from './dto/update-blog.dto';
-import { ApiOkResponse, ApiQuery, ApiTags } from '@nestjs/swagger';
+import {
+  ApiBearerAuth,
+  ApiOkResponse,
+  ApiQuery,
+  ApiTags,
+} from '@nestjs/swagger';
 import { BlogEntity } from './entities/blog.entity';
 import { PaginationPipe } from 'src/common/pipes/pagination.pipe';
 import { query } from 'express';
 import { PaginationInterface } from 'src/common/interface';
+import { JwtAuthGuard } from 'src/common/guards/auth.guard';
 
 @Controller('blog')
+@ApiBearerAuth()
+@UseGuards(JwtAuthGuard)
 @ApiTags('Blogs')
 export class BlogController {
   constructor(private readonly blogService: BlogService) {}

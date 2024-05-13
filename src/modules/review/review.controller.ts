@@ -8,16 +8,25 @@ import {
   Delete,
   Query,
   ParseUUIDPipe,
+  UseGuards,
 } from '@nestjs/common';
 import { ReviewService } from './review.service';
 import { CreateReviewDto } from './dto/create-review.dto';
 import { UpdateReviewDto } from './dto/update-review.dto';
-import { ApiOkResponse, ApiQuery, ApiTags } from '@nestjs/swagger';
+import {
+  ApiBearerAuth,
+  ApiOkResponse,
+  ApiQuery,
+  ApiTags,
+} from '@nestjs/swagger';
 import { ReviewEntity } from './entities/review.entity';
 import { PaginationPipe } from 'src/common/pipes/pagination.pipe';
 import { PaginationInterface } from 'src/common/interface';
+import { JwtAuthGuard } from 'src/common/guards/auth.guard';
 
 @Controller('review')
+@ApiBearerAuth()
+@UseGuards(JwtAuthGuard)
 @ApiTags('Review')
 export class ReviewController {
   constructor(private readonly reviewService: ReviewService) {}

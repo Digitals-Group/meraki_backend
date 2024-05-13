@@ -7,16 +7,25 @@ import {
   Param,
   Delete,
   Query,
+  UseGuards,
 } from '@nestjs/common';
 import { PartnersService } from './partners.service';
 import { CreatePartnerDto } from './dto/create-partner.dto';
 import { UpdatePartnerDto } from './dto/update-partner.dto';
-import { ApiOkResponse, ApiQuery, ApiTags } from '@nestjs/swagger';
+import {
+  ApiBearerAuth,
+  ApiOkResponse,
+  ApiQuery,
+  ApiTags,
+} from '@nestjs/swagger';
 import { PartnerEntity } from './entities/partner.entity';
 import { PaginationPipe } from 'src/common/pipes/pagination.pipe';
 import { PaginationInterface } from 'src/common/interface';
+import { JwtAuthGuard } from 'src/common/guards/auth.guard';
 
 @Controller('partners')
+@ApiBearerAuth()
+@UseGuards(JwtAuthGuard)
 @ApiTags('Partners')
 export class PartnersController {
   constructor(private readonly partnersService: PartnersService) {}

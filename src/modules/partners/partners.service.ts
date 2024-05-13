@@ -3,6 +3,7 @@ import { CreatePartnerDto } from './dto/create-partner.dto';
 import { UpdatePartnerDto } from './dto/update-partner.dto';
 import { PaginationInterface } from 'src/common/interface';
 import { PrismaService } from 'src/prisma/prisma.service';
+import { count } from 'console';
 
 @Injectable()
 export class PartnersService {
@@ -11,19 +12,22 @@ export class PartnersService {
     return this.prisma.partners.create({ data: createPartnerDto });
   }
 
-  findAll(query: PaginationInterface) {
-    return this.prisma.partners.findMany({
-      skip: +query.skip,
-      take: +query.take,
-      orderBy: [
-        {
-          image: query.image,
-        },
-        {
-          createdAt: 'asc',
-        },
-      ],
-    });
+  async findAll(query: PaginationInterface) {
+    return {
+      data: await this.prisma.partners.findMany({
+        skip: +query.skip,
+        take: +query.take,
+        orderBy: [
+          {
+            image: query.image,
+          },
+          {
+            createdAt: 'asc',
+          },
+        ],
+      }),
+      count: await this.prisma.partners.count(),
+    };
   }
 
   findOne(id: string) {

@@ -7,17 +7,26 @@ import {
   Param,
   Delete,
   Query,
+  UseGuards,
 } from '@nestjs/common';
 import { FaqService } from './faq.service';
 import { CreateFaqDto } from './dto/create-faq.dto';
 import { UpdateFaqDto } from './dto/update-faq.dto';
-import { ApiOkResponse, ApiQuery, ApiTags } from '@nestjs/swagger';
+import {
+  ApiBearerAuth,
+  ApiOkResponse,
+  ApiQuery,
+  ApiTags,
+} from '@nestjs/swagger';
 import { query } from 'express';
 import { FaqEntity } from './entities/faq.entity';
 import { PaginationPipe } from 'src/common/pipes/pagination.pipe';
 import { PaginationInterface } from 'src/common/interface';
+import { JwtAuthGuard } from 'src/common/guards/auth.guard';
 
 @Controller('faq')
+@ApiBearerAuth()
+@UseGuards(JwtAuthGuard)
 @ApiTags('FAQ')
 export class FaqController {
   constructor(private readonly faqService: FaqService) {}

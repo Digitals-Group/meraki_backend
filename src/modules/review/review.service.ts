@@ -3,6 +3,7 @@ import { CreateReviewDto } from './dto/create-review.dto';
 import { UpdateReviewDto } from './dto/update-review.dto';
 import { PaginationInterface } from 'src/common/interface';
 import { PrismaService } from 'src/prisma/prisma.service';
+import { count } from 'console';
 
 @Injectable()
 export class ReviewService {
@@ -11,19 +12,22 @@ export class ReviewService {
     return this.prisma.review.create({ data: createReviewDto });
   }
 
-  findAll(query: PaginationInterface) {
-    return this.prisma.review.findMany({
-      skip: +query.skip,
-      take: +query.take,
-      orderBy: [
-        {
-          name: query.name,
-        },
-        {
-          createdAt: 'asc',
-        },
-      ],
-    });
+  async findAll(query: PaginationInterface) {
+    return {
+      data: await this.prisma.review.findMany({
+        skip: +query.skip,
+        take: +query.take,
+        orderBy: [
+          {
+            name: query.name,
+          },
+          {
+            createdAt: 'asc',
+          },
+        ],
+      }),
+      count: await this.prisma.review.count(),
+    };
   }
   findOne(id: string) {
     return this.prisma.review.findUnique({ where: { id } });

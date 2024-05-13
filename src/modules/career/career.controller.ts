@@ -8,17 +8,26 @@ import {
   Delete,
   ParseUUIDPipe,
   Query,
+  UseGuards,
 } from '@nestjs/common';
 import { CareerService } from './career.service';
 import { CreateCareerDto } from './dto/create-career.dto';
 import { UpdateCareerDto } from './dto/update-career.dto';
-import { ApiOkResponse, ApiQuery, ApiTags } from '@nestjs/swagger';
+import {
+  ApiBearerAuth,
+  ApiOkResponse,
+  ApiQuery,
+  ApiTags,
+} from '@nestjs/swagger';
 import { CareerEntity } from './entities/career.entity';
 import { PaginationPipe } from 'src/common/pipes/pagination.pipe';
 import { query } from 'express';
 import { PaginationInterface } from 'src/common/interface';
+import { JwtAuthGuard } from 'src/common/guards/auth.guard';
 
 @Controller('career')
+@ApiBearerAuth()
+@UseGuards(JwtAuthGuard)
 @ApiTags('Career')
 export class CareerController {
   constructor(private readonly careerService: CareerService) {}

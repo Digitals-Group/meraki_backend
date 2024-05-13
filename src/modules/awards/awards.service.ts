@@ -3,6 +3,7 @@ import { CreateAwardDto } from './dto/create-award.dto';
 import { UpdateAwardDto } from './dto/update-award.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { PaginationInterface } from 'src/common/interface';
+import { count } from 'console';
 
 @Injectable()
 export class AwardsService {
@@ -12,19 +13,22 @@ export class AwardsService {
     return this.prisma.awards.create({ data: createAwardDto });
   }
 
-  findAll(query: PaginationInterface) {
-    return this.prisma.awards.findMany({
-      skip: +query.skip,
-      take: +query.take,
-      orderBy: [
-        {
-          title: query.title,
-        },
-        {
-          createdAt: 'asc',
-        },
-      ],
-    });
+  async findAll(query: PaginationInterface) {
+    return {
+      data: await this.prisma.awards.findMany({
+        skip: +query.skip,
+        take: +query.take,
+        orderBy: [
+          {
+            title: query.title,
+          },
+          {
+            createdAt: 'asc',
+          },
+        ],
+      }),
+      count: await this.prisma.awards.count(),
+    };
   }
 
   findOne(id: string) {
