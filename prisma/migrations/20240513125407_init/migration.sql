@@ -1,4 +1,45 @@
 -- CreateTable
+CREATE TABLE "Roles" (
+    "id" TEXT NOT NULL,
+    "name" TEXT NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
+
+    CONSTRAINT "Roles_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "Permissions" (
+    "id" TEXT NOT NULL,
+    "read" BOOLEAN NOT NULL DEFAULT false,
+    "write" BOOLEAN NOT NULL DEFAULT false,
+    "update" BOOLEAN NOT NULL DEFAULT false,
+    "delete" BOOLEAN NOT NULL DEFAULT false,
+    "role_id" TEXT NOT NULL,
+    "table_id" TEXT NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
+
+    CONSTRAINT "Permissions_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "User" (
+    "id" TEXT NOT NULL,
+    "first_name" TEXT,
+    "last_name" TEXT,
+    "username" TEXT NOT NULL,
+    "phone_number" TEXT,
+    "password" TEXT NOT NULL,
+    "role_id" TEXT NOT NULL,
+    "active" BOOLEAN NOT NULL DEFAULT false,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
+
+    CONSTRAINT "User_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
 CREATE TABLE "Blog" (
     "id" TEXT NOT NULL,
     "image" TEXT NOT NULL,
@@ -104,6 +145,15 @@ CREATE TABLE "CareerApply" (
 );
 
 -- CreateIndex
+CREATE UNIQUE INDEX "Roles_name_key" ON "Roles"("name");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "User_username_key" ON "User"("username");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "User_phone_number_key" ON "User"("phone_number");
+
+-- CreateIndex
 CREATE UNIQUE INDEX "Blog_title_key" ON "Blog"("title");
 
 -- CreateIndex
@@ -114,6 +164,12 @@ CREATE UNIQUE INDEX "Contact_email_key" ON "Contact"("email");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "CareerApply_email_key" ON "CareerApply"("email");
+
+-- AddForeignKey
+ALTER TABLE "Permissions" ADD CONSTRAINT "Permissions_role_id_fkey" FOREIGN KEY ("role_id") REFERENCES "Roles"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "User" ADD CONSTRAINT "User_role_id_fkey" FOREIGN KEY ("role_id") REFERENCES "Roles"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "CareerApply" ADD CONSTRAINT "CareerApply_career_id_fkey" FOREIGN KEY ("career_id") REFERENCES "Career"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

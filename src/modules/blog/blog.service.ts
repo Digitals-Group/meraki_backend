@@ -3,7 +3,6 @@ import { CreateBlogDto } from './dto/create-blog.dto';
 import { UpdateBlogDto } from './dto/update-blog.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { PaginationInterface } from 'src/common/interface';
-import { count } from 'console';
 
 @Injectable()
 export class BlogService {

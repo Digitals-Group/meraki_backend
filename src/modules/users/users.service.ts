@@ -14,12 +14,12 @@ export class UsersService {
 
     createUserDto.password = hashedPassword;
 
-    return this.prisma.users.create({ data: createUserDto });
+    return this.prisma.user.create({ data: createUserDto });
   }
 
   async findAll(query: PaginationInterface) {
     return {
-      data: await this.prisma.users.findMany({
+      data: await this.prisma.user.findMany({
         include: {
           roles: true,
         },
@@ -29,22 +29,22 @@ export class UsersService {
           createdAt: 'desc',
         },
       }),
-      count: await this.prisma.users.count(),
+      count: await this.prisma.user.count(),
     };
   }
 
   findOne(id: string) {
-    return this.prisma.users.findUnique({ where: { id } });
+    return this.prisma.user.findUnique({ where: { id } });
   }
 
   async update(id: string, updateUserDto: UpdateUserDto) {
     if (updateUserDto.password) {
       updateUserDto.password = await bcrypt.hash(updateUserDto.password, 10);
     }
-    return this.prisma.users.update({ where: { id }, data: updateUserDto });
+    return this.prisma.user.update({ where: { id }, data: updateUserDto });
   }
 
   remove(id: string) {
-    return this.prisma.users.delete({ where: { id } });
+    return this.prisma.user.delete({ where: { id } });
   }
 }

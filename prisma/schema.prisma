@@ -16,11 +16,10 @@ model Roles {
   id            String          @id @default(uuid())
   name          String          @unique
   permissions   Permissions[]
-  users         Users[]
+  users         User[]
   createdAt     DateTime        @default(now())
   updatedAt     DateTime        @updatedAt
 }
-
 model Permissions {
   id          String     @id @default(uuid())
   read        Boolean    @default(false)
@@ -34,7 +33,7 @@ model Permissions {
   updatedAt   DateTime   @updatedAt
 }
 
-model Users {
+model User {
   id                String     @id @default(uuid())
   first_name        String?
   last_name         String?
