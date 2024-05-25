@@ -13,7 +13,7 @@ async function bootstrap() {
     .setTitle('Meraki')
     .setDescription('Some description')
     .setVersion('1.0')
-    .addServer('https://meraki-feaq.onrender.com/', 'Render Environment')
+    .addServer('https://meraki-9z8x.onrender.com/', 'Render Environment')
     .addServer('http://localhost:3001', 'Local Environment')
     .addTag('Some tag')
     .addBearerAuth()
