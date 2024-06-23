@@ -1,9 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { CreatePartnerDto } from './dto/create-partner.dto';
 import { UpdatePartnerDto } from './dto/update-partner.dto';
-import { PaginationInterface } from 'src/common/interface';
+
 import { PrismaService } from 'src/prisma/prisma.service';
-import { count } from 'console';
+import { Prisma } from '@prisma/client';
 
 @Injectable()
 export class PartnersService {
@@ -12,20 +12,9 @@ export class PartnersService {
     return this.prisma.partners.create({ data: createPartnerDto });
   }
 
-  async findAll(query: PaginationInterface) {
+  async findAll(query: Prisma.PartnersFindManyArgs) {
     return {
-      data: await this.prisma.partners.findMany({
-        skip: +query.skip,
-        take: +query.take,
-        orderBy: [
-          {
-            image: query.image,
-          },
-          {
-            createdAt: 'asc',
-          },
-        ],
-      }),
+      data: await this.prisma.partners.findMany(query),
       count: await this.prisma.partners.count(),
     };
   }

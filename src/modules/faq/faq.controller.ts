@@ -8,6 +8,7 @@ import {
   Delete,
   Query,
   UseGuards,
+  ParseUUIDPipe,
 } from '@nestjs/common';
 import { FaqService } from './faq.service';
 import { CreateFaqDto } from './dto/create-faq.dto';
@@ -18,11 +19,10 @@ import {
   ApiQuery,
   ApiTags,
 } from '@nestjs/swagger';
-import { query } from 'express';
 import { FaqEntity } from './entities/faq.entity';
-import { PaginationPipe } from 'src/common/pipes/pagination.pipe';
-import { PaginationInterface } from 'src/common/interface';
+
 import { JwtAuthGuard } from 'src/common/guards/auth.guard';
+import { Prisma } from '@prisma/client';
 
 @Controller('faq')
 @ApiBearerAuth()
@@ -40,26 +40,25 @@ export class FaqController {
   @ApiOkResponse({ type: FaqEntity, isArray: true })
   @ApiQuery({ name: 'take', type: Number, required: false })
   @ApiQuery({ name: 'skip', type: Number, required: false })
-  @ApiQuery({ name: 'question', type: String, required: false })
-  findAll(@Query(new PaginationPipe()) query: PaginationInterface) {
+  findAll(@Query() query: Prisma.FaqFindManyArgs) {
     return this.faqService.findAll(query);
   }
 
   @Get(':id')
-  findOne(@Param('id', new PaginationPipe()) id: string) {
+  findOne(@Param('id', new ParseUUIDPipe()) id: string) {
     return this.faqService.findOne(id);
   }
 
   @Patch(':id')
   update(
-    @Param('id', new PaginationPipe()) id: string,
+    @Param('id', new ParseUUIDPipe()) id: string,
     @Body() updateFaqDto: UpdateFaqDto,
   ) {
     return this.faqService.update(id, updateFaqDto);
   }
 
   @Delete(':id')
-  remove(@Param('id', new PaginationPipe()) id: string) {
+  remove(@Param('id', new ParseUUIDPipe()) id: string) {
     return this.faqService.remove(id);
   }
 }

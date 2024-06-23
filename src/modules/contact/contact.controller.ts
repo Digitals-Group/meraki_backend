@@ -8,6 +8,7 @@ import {
   Delete,
   Query,
   UseGuards,
+  ParseUUIDPipe,
 } from '@nestjs/common';
 import { ContactService } from './contact.service';
 import { CreateContactDto } from './dto/create-contact.dto';
@@ -19,9 +20,9 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 import { ContactEntity } from './entities/contact.entity';
-import { PaginationPipe } from 'src/common/pipes/pagination.pipe';
-import { PaginationInterface } from 'src/common/interface';
+
 import { JwtAuthGuard } from 'src/common/guards/auth.guard';
+import { Prisma } from '@prisma/client';
 
 @Controller('contact')
 @ApiBearerAuth()
@@ -39,26 +40,25 @@ export class ContactController {
   @ApiOkResponse({ type: ContactEntity, isArray: true })
   @ApiQuery({ name: 'take', type: Number, required: false })
   @ApiQuery({ name: 'skip', type: Number, required: false })
-  @ApiQuery({ name: 'name', type: String, required: false })
-  findAll(@Query(new PaginationPipe()) query: PaginationInterface) {
+  findAll(@Query() query: Prisma.ContactFindManyArgs) {
     return this.contactService.findAll(query);
   }
 
   @Get(':id')
-  findOne(@Param('id', new PaginationPipe()) id: string) {
+  findOne(@Param('id', new ParseUUIDPipe()) id: string) {
     return this.contactService.findOne(id);
   }
 
   @Patch(':id')
   update(
-    @Param('id', new PaginationPipe()) id: string,
+    @Param('id', new ParseUUIDPipe()) id: string,
     @Body() updateContactDto: UpdateContactDto,
   ) {
     return this.contactService.update(id, updateContactDto);
   }
 
   @Delete(':id')
-  remove(@Param('id', new PaginationPipe()) id: string) {
+  remove(@Param('id', new ParseUUIDPipe()) id: string) {
     return this.contactService.remove(id);
   }
 }

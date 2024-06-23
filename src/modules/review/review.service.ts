@@ -1,9 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { CreateReviewDto } from './dto/create-review.dto';
 import { UpdateReviewDto } from './dto/update-review.dto';
-import { PaginationInterface } from 'src/common/interface';
 import { PrismaService } from 'src/prisma/prisma.service';
-import { count } from 'console';
+import { Prisma } from '@prisma/client';
 
 @Injectable()
 export class ReviewService {
@@ -12,20 +11,9 @@ export class ReviewService {
     return this.prisma.review.create({ data: createReviewDto });
   }
 
-  async findAll(query: PaginationInterface) {
+  async findAll(query: Prisma.ReviewFindManyArgs) {
     return {
-      data: await this.prisma.review.findMany({
-        skip: +query.skip,
-        take: +query.take,
-        orderBy: [
-          {
-            name: query.name,
-          },
-          {
-            createdAt: 'asc',
-          },
-        ],
-      }),
+      data: await this.prisma.review.findMany(query),
       count: await this.prisma.review.count(),
     };
   }

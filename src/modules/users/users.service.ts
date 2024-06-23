@@ -3,7 +3,7 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
 import * as bcrypt from 'bcrypt';
-import { PaginationInterface } from 'src/common/interface';
+import { Prisma } from '@prisma/client';
 
 @Injectable()
 export class UsersService {
@@ -17,7 +17,7 @@ export class UsersService {
     return this.prisma.user.create({ data: createUserDto });
   }
 
-  async findAll(query: PaginationInterface) {
+  async findAll(query: Prisma.UserFindManyArgs) {
     return {
       data: await this.prisma.user.findMany({
         include: {

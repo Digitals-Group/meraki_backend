@@ -20,9 +20,8 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 import { AwardEntity } from './entities/award.entity';
-import { PaginationInterface } from 'src/common/interface';
-import { PaginationPipe } from 'src/common/pipes/pagination.pipe';
 import { JwtAuthGuard } from 'src/common/guards/auth.guard';
+import { Prisma } from '@prisma/client';
 
 @Controller('awards')
 @ApiBearerAuth()
@@ -40,8 +39,7 @@ export class AwardsController {
   @ApiOkResponse({ type: AwardEntity, isArray: true })
   @ApiQuery({ name: 'take', type: Number, required: false })
   @ApiQuery({ name: 'skip', type: Number, required: false })
-  @ApiQuery({ name: 'title', type: String, required: false })
-  findAll(@Query(new PaginationPipe()) query: PaginationInterface) {
+  findAll(@Query() query: Prisma.AwardsFindManyArgs) {
     return this.awardsService.findAll(query);
   }
 

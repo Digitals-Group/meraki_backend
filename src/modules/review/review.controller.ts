@@ -20,9 +20,9 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 import { ReviewEntity } from './entities/review.entity';
-import { PaginationPipe } from 'src/common/pipes/pagination.pipe';
-import { PaginationInterface } from 'src/common/interface';
+
 import { JwtAuthGuard } from 'src/common/guards/auth.guard';
+import { Prisma } from '@prisma/client';
 
 @Controller('review')
 @ApiBearerAuth()
@@ -40,8 +40,7 @@ export class ReviewController {
   @ApiOkResponse({ type: ReviewEntity, isArray: true })
   @ApiQuery({ name: 'take', type: Number, required: false })
   @ApiQuery({ name: 'skip', type: Number, required: false })
-  @ApiQuery({ name: 'name', type: String, required: false })
-  findAll(@Query(new PaginationPipe()) query: PaginationInterface) {
+  findAll(@Query() query: Prisma.ReviewFindManyArgs) {
     return this.reviewService.findAll(query);
   }
 

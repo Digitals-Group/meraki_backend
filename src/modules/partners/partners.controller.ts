@@ -8,6 +8,7 @@ import {
   Delete,
   Query,
   UseGuards,
+  ParseUUIDPipe,
 } from '@nestjs/common';
 import { PartnersService } from './partners.service';
 import { CreatePartnerDto } from './dto/create-partner.dto';
@@ -19,9 +20,9 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 import { PartnerEntity } from './entities/partner.entity';
-import { PaginationPipe } from 'src/common/pipes/pagination.pipe';
-import { PaginationInterface } from 'src/common/interface';
+
 import { JwtAuthGuard } from 'src/common/guards/auth.guard';
+import { Prisma } from '@prisma/client';
 
 @Controller('partners')
 @ApiBearerAuth()
@@ -39,26 +40,25 @@ export class PartnersController {
   @ApiOkResponse({ type: PartnerEntity, isArray: true })
   @ApiQuery({ name: 'take', type: Number, required: false })
   @ApiQuery({ name: 'skip', type: Number, required: false })
-  @ApiQuery({ name: 'name', type: String, required: false })
-  findAll(@Query(new PaginationPipe()) query: PaginationInterface) {
+  findAll(@Query() query: Prisma.PartnersFindManyArgs) {
     return this.partnersService.findAll(query);
   }
 
   @Get(':id')
-  findOne(@Param('id', new PaginationPipe()) id: string) {
+  findOne(@Param('id', new ParseUUIDPipe()) id: string) {
     return this.partnersService.findOne(id);
   }
 
   @Patch(':id')
   update(
-    @Param('id', new PaginationPipe()) id: string,
+    @Param('id', new ParseUUIDPipe()) id: string,
     @Body() updatePartnerDto: UpdatePartnerDto,
   ) {
     return this.partnersService.update(id, updatePartnerDto);
   }
 
   @Delete(':id')
-  remove(@Param('id', new PaginationPipe()) id: string) {
+  remove(@Param('id', new ParseUUIDPipe()) id: string) {
     return this.partnersService.remove(id);
   }
 }

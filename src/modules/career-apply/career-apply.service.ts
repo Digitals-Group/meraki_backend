@@ -1,9 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { CreateCareerApplyDto } from './dto/create-career-apply.dto';
 import { UpdateCareerApplyDto } from './dto/update-career-apply.dto';
-import { PaginationInterface } from 'src/common/interface';
+
 import { PrismaService } from 'src/prisma/prisma.service';
-import { count } from 'console';
+import { Prisma } from '@prisma/client';
 
 @Injectable()
 export class CareerApplyService {
@@ -13,20 +13,9 @@ export class CareerApplyService {
     return this.prisma.careerApply.create({ data: createCareerApplyDto });
   }
 
-  async findAll(query: PaginationInterface) {
+  async findAll(query: Prisma.CareerApplyFindManyArgs) {
     return {
-      data: await this.prisma.careerApply.findMany({
-        skip: +query.skip,
-        take: +query.take,
-        orderBy: [
-          {
-            first_name: query.first_name,
-          },
-          {
-            createdAt: 'asc',
-          },
-        ],
-      }),
+      data: await this.prisma.careerApply.findMany(query),
       count: await this.prisma.careerApply.count(),
     };
   }

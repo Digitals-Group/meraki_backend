@@ -1,9 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { CreateFaqDto } from './dto/create-faq.dto';
 import { UpdateFaqDto } from './dto/update-faq.dto';
-import { PaginationInterface } from 'src/common/interface';
 import { PrismaService } from 'src/prisma/prisma.service';
-import { count } from 'console';
+import { Prisma } from '@prisma/client';
 
 @Injectable()
 export class FaqService {
@@ -12,20 +11,9 @@ export class FaqService {
     return this.prisma.faq.create({ data: createFaqDto });
   }
 
-  async findAll(query: PaginationInterface) {
+  async findAll(query: Prisma.FaqFindManyArgs) {
     return {
-      data: await this.prisma.faq.findMany({
-        skip: +query.skip,
-        take: +query.take,
-        orderBy: [
-          {
-            question: query.question,
-          },
-          {
-            createdAt: 'asc',
-          },
-        ],
-      }),
+      data: await this.prisma.faq.findMany(),
       count: await this.prisma.faq.count(),
     };
   }

@@ -2,7 +2,8 @@ import { Injectable } from '@nestjs/common';
 import { CreateBlogDto } from './dto/create-blog.dto';
 import { UpdateBlogDto } from './dto/update-blog.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
-import { PaginationInterface } from 'src/common/interface';
+
+import { Prisma } from '@prisma/client';
 
 @Injectable()
 export class BlogService {
@@ -12,20 +13,9 @@ export class BlogService {
     return this.prisma.blog.create({ data: createBlogDto });
   }
 
-  async findAll(query: PaginationInterface) {
+  async findAll(query: Prisma.BlogFindManyArgs) {
     return {
-      data: await this.prisma.blog.findMany({
-        skip: +query.skip,
-        take: +query.take,
-        orderBy: [
-          {
-            title: query.title,
-          },
-          {
-            createdAt: 'asc',
-          },
-        ],
-      }),
+      data: await this.prisma.blog.findMany(query),
       count: await this.prisma.career.count(),
     };
   }

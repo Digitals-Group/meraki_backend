@@ -47,7 +47,7 @@ export class AppController {
   async local(@UploadedFile() file: Express.Multer.File) {
     return {
       statusCode: 200,
-      data: file.path,
+      data: process.env.BASE_URL + file.path,
     };
   }
 }

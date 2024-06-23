@@ -20,9 +20,9 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 import { CareerApplyEntity } from './entities/career-apply.entity';
-import { PaginationPipe } from 'src/common/pipes/pagination.pipe';
-import { PaginationInterface } from 'src/common/interface';
+
 import { JwtAuthGuard } from 'src/common/guards/auth.guard';
+import { Prisma } from '@prisma/client';
 
 @Controller('career-apply')
 @ApiBearerAuth()
@@ -39,9 +39,7 @@ export class CareerApplyController {
   @Get()
   @ApiOkResponse({ type: CareerApplyEntity, isArray: true })
   @ApiQuery({ name: 'take', type: Number, required: false })
-  @ApiQuery({ name: 'skip', type: Number, required: false })
-  @ApiQuery({ name: 'first_name', type: String, required: false })
-  findAll(@Query(new PaginationPipe()) query: PaginationInterface) {
+  findAll(@Query() query: Prisma.CareerApplyFindManyArgs) {
     return this.careerApplyService.findAll(query);
   }
 

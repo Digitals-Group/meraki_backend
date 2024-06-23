@@ -2,8 +2,8 @@ import { Injectable } from '@nestjs/common';
 import { CreateAwardDto } from './dto/create-award.dto';
 import { UpdateAwardDto } from './dto/update-award.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
-import { PaginationInterface } from 'src/common/interface';
-import { count } from 'console';
+
+import { Prisma } from '@prisma/client';
 
 @Injectable()
 export class AwardsService {
@@ -13,20 +13,9 @@ export class AwardsService {
     return this.prisma.awards.create({ data: createAwardDto });
   }
 
-  async findAll(query: PaginationInterface) {
+  async findAll(query: Prisma.AwardsFindManyArgs) {
     return {
-      data: await this.prisma.awards.findMany({
-        skip: +query.skip,
-        take: +query.take,
-        orderBy: [
-          {
-            title: query.title,
-          },
-          {
-            createdAt: 'asc',
-          },
-        ],
-      }),
+      data: await this.prisma.awards.findMany(query),
       count: await this.prisma.awards.count(),
     };
   }

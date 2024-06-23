@@ -1,9 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { CreateContactDto } from './dto/create-contact.dto';
 import { UpdateContactDto } from './dto/update-contact.dto';
-import { PaginationInterface } from 'src/common/interface';
+
 import { PrismaService } from 'src/prisma/prisma.service';
-import { count } from 'console';
+import { Prisma } from '@prisma/client';
 
 @Injectable()
 export class ContactService {
@@ -13,20 +13,9 @@ export class ContactService {
     return this.prisma.contact.create({ data: createContactDto });
   }
 
-  async findAll(query: PaginationInterface) {
+  async findAll(query: Prisma.ContactFindManyArgs) {
     return {
-      data: await this.prisma.contact.findMany({
-        skip: +query.skip,
-        take: +query.take,
-        orderBy: [
-          {
-            name: query.name,
-          },
-          {
-            createdAt: 'asc',
-          },
-        ],
-      }),
+      data: await this.prisma.contact.findMany(query),
       count: await this.prisma.contact.count(),
     };
   }

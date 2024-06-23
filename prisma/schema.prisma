@@ -97,8 +97,9 @@ model Contact {
   description     String
   take_info       String 
   is_Called       Boolean? @default(false)
-  createdAt      DateTime      @default(now())
-  updatedAt      DateTime      @updatedAt
+  services        Service[]
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
 }
 
 model Faq {
@@ -129,6 +130,104 @@ model CareerApply {
   resume            String
   cover_letter      String
   is_Called         Boolean? @default(false)
-  createdAt      DateTime      @default(now())
-  updatedAt      DateTime      @updatedAt
+  createdAt         DateTime      @default(now())
+  updatedAt         DateTime      @updatedAt
 }
+
+//Article
+
+model Article {
+  id              String          @id@default(uuid())
+  title           String          @unique
+  description     String  
+  content         String      
+  createdAt         DateTime   @default(now())
+  updatedAt         DateTime   @updatedAt      
+}
+
+
+///Project
+model ProjectCategory {
+  id        String       @id @default(uuid())
+  title     String
+  projects  Project[]
+  createdAt         DateTime   @default(now())
+  updatedAt         DateTime   @updatedAt
+}
+model ProjectSolution {
+  id        String       @id @default(uuid())
+  title     String
+  description String
+  projectId String
+  project   Project   @relation(fields: [projectId], references: [id])
+  createdAt         DateTime   @default(now())
+  updatedAt         DateTime   @updatedAt
+}
+
+model ProjectResult {
+  id        String       @id @default(uuid())
+  image     String
+  projectId String
+  project   Project   @relation(fields: [projectId], references: [id])
+  createdAt         DateTime   @default(now())
+  updatedAt         DateTime   @updatedAt
+}
+
+model Project {
+  id                  String       @id @default(uuid())
+  title               String
+  image               String
+  description         String
+  resultDescription   String
+  projectCategoryId   String
+  projectCategory     ProjectCategory   @relation(fields: [projectCategoryId], references: [id])
+  projectSolutions    ProjectSolution[]
+  projectResults      ProjectResult[]
+  createdAt         DateTime   @default(now())
+  updatedAt         DateTime   @updatedAt
+}
+
+
+/// Service
+model ServiceCategory {
+  id        String       @id @default(uuid())
+  title     String
+  image     String
+  services Service[]
+  createdAt         DateTime   @default(now())
+  updatedAt         DateTime   @updatedAt
+}
+
+model ServiceImages {
+  id         String       @id @default(uuid())
+  image      String
+  serviceId  String
+  service   Service @relation(fields: [serviceId], references: [id])
+  createdAt         DateTime   @default(now())
+  updatedAt         DateTime   @updatedAt
+}
+
+model ServiceStep {
+  id           String       @id @default(uuid())
+  title        String
+  description  String
+  serviceId    String
+  service   Service @relation(fields: [serviceId], references: [id])
+  createdAt         DateTime   @default(now())
+  updatedAt         DateTime   @updatedAt
+}
+
+model Service {
+  id                String       @id @default(uuid())
+  title             String
+  video             String
+  serviceCategoryId String
+  contactId         String
+  serviceCategory   ServiceCategory  @relation(fields: [serviceCategoryId], references: [id])
+  contact           Contact         @relation(fields: [contactId], references: [id])
+  serviceImages     ServiceImages[]
+  serviceSteps      ServiceStep[]
+  createdAt         DateTime   @default(now())
+  updatedAt         DateTime   @updatedAt
+}
+

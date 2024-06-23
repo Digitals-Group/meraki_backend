@@ -20,10 +20,9 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 import { BlogEntity } from './entities/blog.entity';
-import { PaginationPipe } from 'src/common/pipes/pagination.pipe';
-import { query } from 'express';
-import { PaginationInterface } from 'src/common/interface';
+
 import { JwtAuthGuard } from 'src/common/guards/auth.guard';
+import { Prisma } from '@prisma/client';
 
 @Controller('blog')
 @ApiBearerAuth()
@@ -41,8 +40,7 @@ export class BlogController {
   @ApiOkResponse({ type: BlogEntity, isArray: true })
   @ApiQuery({ name: 'take', type: Number, required: false })
   @ApiQuery({ name: 'skip', type: Number, required: false })
-  @ApiQuery({ name: 'title', type: String, required: false })
-  findAll(@Query(new PaginationPipe()) query: PaginationInterface) {
+  findAll(@Query() query: Prisma.BlogFindManyArgs) {
     return this.blogService.findAll(query);
   }
 

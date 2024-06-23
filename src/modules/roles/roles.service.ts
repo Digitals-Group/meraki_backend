@@ -2,8 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { CreateRoleDto } from './dto/create-role.dto';
 import { UpdateRoleDto } from './dto/update-role.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
-import { PaginationInterface } from 'src/common/interface';
-import { count } from 'console';
+import { Prisma } from '@prisma/client';
 
 @Injectable()
 export class RolesService {
@@ -13,19 +12,9 @@ export class RolesService {
     return this.prisma.roles.create({ data: createRoleDto });
   }
 
-  async findAll(query: PaginationInterface) {
+  async findAll(query: Prisma.RolesFindManyArgs) {
     return {
-      data: await this.prisma.roles.findMany({
-        include: {
-          permissions: true,
-          users: true,
-        },
-        skip: query.skip,
-        take: query.take,
-        orderBy: {
-          createdAt: 'desc',
-        },
-      }),
+      data: await this.prisma.roles.findMany(query),
       count: await this.prisma.roles.count(),
     };
   }
