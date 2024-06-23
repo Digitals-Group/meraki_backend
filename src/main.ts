@@ -14,7 +14,7 @@ async function bootstrap() {
     .setDescription('Some description')
     .setVersion('1.0')
     .addServer(
-      'https://meraki-backend-fxe5.onrender.com/',
+      'https://meraki-backend-vol7.onrender.com/',
       'Render Environment',
     )
     .addServer('http://localhost:3001', 'Local Environment')

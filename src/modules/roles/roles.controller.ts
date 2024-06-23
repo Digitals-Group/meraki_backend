@@ -26,8 +26,8 @@ import { PaginationInterface } from 'src/common/interface';
 import { JwtAuthGuard } from 'src/common/guards/auth.guard';
 
 @Controller('roles')
-@ApiBearerAuth()
-@UseGuards(JwtAuthGuard)
+// @ApiBearerAuth()
+// @UseGuards(JwtAuthGuard)
 @ApiTags('Roles')
 export class RolesController {
   constructor(private readonly rolesService: RolesService) {}

@@ -19,8 +19,8 @@ import { PaginationInterface } from 'src/common/interface';
 import { JwtAuthGuard } from 'src/common/guards/auth.guard';
 
 @Controller('users')
-@ApiBearerAuth()
-@UseGuards(JwtAuthGuard)
+// @ApiBearerAuth()
+// @UseGuards(JwtAuthGuard)
 @ApiTags('Users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
