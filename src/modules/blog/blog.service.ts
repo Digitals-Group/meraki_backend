@@ -16,7 +16,7 @@ export class BlogService {
   async findAll(query: Prisma.BlogFindManyArgs) {
     return {
       data: await this.prisma.blog.findMany(query),
-      count: await this.prisma.career.count(),
+      count: await this.prisma.blog.count(),
     };
   }
 

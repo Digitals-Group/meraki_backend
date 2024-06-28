@@ -8,15 +8,25 @@ import {
   Delete,
   Query,
   ParseUUIDPipe,
+  UseGuards,
 } from '@nestjs/common';
 import { ArticleService } from './article.service';
 import { CreateArticleDto } from './dto/create-article.dto';
 import { UpdateArticleDto } from './dto/update-article.dto';
 import { Prisma } from '@prisma/client';
 import { ArticleEntity } from './entities/article.entity';
-import { ApiOkResponse, ApiQuery } from '@nestjs/swagger';
+import {
+  ApiBearerAuth,
+  ApiOkResponse,
+  ApiQuery,
+  ApiTags,
+} from '@nestjs/swagger';
+import { JwtAuthGuard } from 'src/common/guards/auth.guard';
 
 @Controller('article')
+@ApiBearerAuth()
+@UseGuards(JwtAuthGuard)
+@ApiTags('Article')
 export class ArticleController {
   constructor(private readonly articleService: ArticleService) {}
 

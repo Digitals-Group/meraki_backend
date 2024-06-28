@@ -1,17 +1,15 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { Blog } from '@prisma/client';
 
-export class BlogEntity implements Blog {
+export class ProjectSolutionEntity {
   @ApiProperty()
   id: string;
-  @ApiProperty()
-  image: string;
+
   @ApiProperty()
   title: string;
+
   @ApiProperty()
   description: string;
+
   @ApiProperty()
-  createdAt: Date;
-  @ApiProperty()
-  updatedAt: Date;
+  projectId: string;
 }

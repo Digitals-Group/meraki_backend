@@ -37,9 +37,9 @@ export class BlogController {
   }
 
   @Get()
-  @ApiOkResponse({ type: BlogEntity, isArray: true })
-  @ApiQuery({ name: 'take', type: Number, required: false })
-  @ApiQuery({ name: 'skip', type: Number, required: false })
+    @ApiOkResponse({ type: BlogEntity, isArray: true })
+    @ApiQuery({ name: 'take', type: Number, required: false })
+    @ApiQuery({ name: 'skip', type: Number, required: false })
   findAll(@Query() query: Prisma.BlogFindManyArgs) {
     return this.blogService.findAll(query);
   }

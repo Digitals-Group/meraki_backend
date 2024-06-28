@@ -1,15 +1,21 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { Career } from '@prisma/client';
 
-export class CareerEntity implements Career {
+export class ProjectEntity {
   @ApiProperty()
   id: string;
+
   @ApiProperty()
-  name: string;
+  title: string;
+
+  @ApiProperty()
+  image: string;
+
   @ApiProperty()
   description: string;
+
   @ApiProperty()
-  createdAt: Date;
+  resultDescription: string;
+
   @ApiProperty()
-  updatedAt: Date;
+  projectCategoryId: string;
 }

@@ -2,7 +2,6 @@ import { Injectable } from '@nestjs/common';
 import { CreateAwardDto } from './dto/create-award.dto';
 import { UpdateAwardDto } from './dto/update-award.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
-
 import { Prisma } from '@prisma/client';
 
 @Injectable()

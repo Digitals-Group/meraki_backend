@@ -15,6 +15,10 @@ import { UsersModule } from './modules/users/users.module';
 import { RolesModule } from './modules/roles/roles.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { ArticleModule } from './modules/article/article.module';
+import { ProjectModule } from './modules/project/project.module';
+import { ProjectResultModule } from './modules/project-result/project-result.module';
+import { ProjectSolutionModule } from './modules/project-solution/project-solution.module';
+import { ProjectCategoryModule } from './modules/project-category/project-category.module';
 
 @Module({
   imports: [
@@ -33,6 +37,10 @@ import { ArticleModule } from './modules/article/article.module';
     RolesModule,
     AuthModule,
     ArticleModule,
+    ProjectCategoryModule,
+    ProjectSolutionModule,
+    ProjectResultModule,
+    ProjectModule,
   ],
   controllers: [AppController],
   providers: [AppService],

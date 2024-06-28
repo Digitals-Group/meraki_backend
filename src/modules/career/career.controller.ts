@@ -21,8 +21,6 @@ import {
 } from '@nestjs/swagger';
 import { CareerEntity } from './entities/career.entity';
 
-import { query } from 'express';
-
 import { JwtAuthGuard } from 'src/common/guards/auth.guard';
 import { Prisma } from '@prisma/client';
 
