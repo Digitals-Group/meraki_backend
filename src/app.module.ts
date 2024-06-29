@@ -19,6 +19,10 @@ import { ProjectModule } from './modules/project/project.module';
 import { ProjectResultModule } from './modules/project-result/project-result.module';
 import { ProjectSolutionModule } from './modules/project-solution/project-solution.module';
 import { ProjectCategoryModule } from './modules/project-category/project-category.module';
+import { ServiceCategoryModule } from './modules/service-category/service-category.module';
+import { ServiceImageModule } from './modules/service-image/service-image.module';
+import { ServiceStepModule } from './modules/service-step/service-step.module';
+import { ServiceModule } from './modules/service/service.module';
 
 @Module({
   imports: [
@@ -41,6 +45,10 @@ import { ProjectCategoryModule } from './modules/project-category/project-catego
     ProjectSolutionModule,
     ProjectResultModule,
     ProjectModule,
+    ServiceCategoryModule,
+    ServiceImageModule,
+    ServiceStepModule,
+    ServiceModule,
   ],
   controllers: [AppController],
   providers: [AppService],
