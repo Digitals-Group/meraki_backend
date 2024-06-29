@@ -12,9 +12,9 @@ export class RolesService {
     return this.prisma.roles.create({ data: createRoleDto });
   }
 
-  async findAll(query: Prisma.RolesFindManyArgs) {
+  async findAll(body: Prisma.RolesFindManyArgs) {
     return {
-      data: await this.prisma.roles.findMany(query),
+      data: await this.prisma.roles.findMany(body),
       count: await this.prisma.roles.count(),
     };
   }

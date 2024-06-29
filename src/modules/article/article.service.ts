@@ -12,9 +12,9 @@ export class ArticleService {
     return this.prisma.article.create({ data: createArticleDto });
   }
 
-  async findAll(query: Prisma.ArticleFindManyArgs) {
+  async findAll(body: Prisma.ArticleFindManyArgs) {
     return {
-      data: await this.prisma.article.findMany(query),
+      data: await this.prisma.article.findMany(body),
       count: await this.prisma.article.count(),
     };
   }

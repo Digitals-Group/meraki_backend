@@ -35,12 +35,10 @@ export class ArticleController {
     return this.articleService.create(createArticleDto);
   }
 
-  @Get()
+  @Post('/list')
   @ApiOkResponse({ type: ArticleEntity, isArray: true })
-  @ApiQuery({ name: 'take', type: Number, required: false })
-  @ApiQuery({ name: 'skip', type: Number, required: false })
-  findAll(@Query() query: Prisma.ArticleFindManyArgs) {
-    return this.articleService.findAll(query);
+  findAll(@Body() body: Prisma.ArticleFindManyArgs) {
+    return this.articleService.findAll(body);
   }
 
   @Get(':id')

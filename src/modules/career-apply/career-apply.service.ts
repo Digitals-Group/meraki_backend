@@ -13,9 +13,9 @@ export class CareerApplyService {
     return this.prisma.careerApply.create({ data: createCareerApplyDto });
   }
 
-  async findAll(query: Prisma.CareerApplyFindManyArgs) {
+  async findAll(body: Prisma.CareerApplyFindManyArgs) {
     return {
-      data: await this.prisma.careerApply.findMany(query),
+      data: await this.prisma.careerApply.findMany(body),
       count: await this.prisma.careerApply.count(),
     };
   }

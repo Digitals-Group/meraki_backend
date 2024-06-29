@@ -37,12 +37,10 @@ export class RolesController {
     return this.rolesService.create(createRoleDto);
   }
 
-  @Get()
+  @Post('/list')
   @ApiOkResponse({ type: RoleEntity, isArray: true })
-  @ApiQuery({ name: 'take', type: Number, required: false })
-  @ApiQuery({ name: 'skip', type: Number, required: false })
-  findAll(@Query() query: Prisma.RolesFindManyArgs) {
-    return this.rolesService.findAll(query);
+  findAll(@Body() body: Prisma.RolesFindManyArgs) {
+    return this.rolesService.findAll(body);
   }
 
   @Get(':id')

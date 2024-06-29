@@ -1,4 +1,12 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+} from '@nestjs/common';
 import { ServiceImageService } from './service-image.service';
 import { CreateServiceImageDto } from './dto/create-service-image.dto';
 import { UpdateServiceImageDto } from './dto/update-service-image.dto';
@@ -12,7 +20,7 @@ export class ServiceImageController {
     return this.serviceImageService.create(createServiceImageDto);
   }
 
-  @Get()
+  @Post()
   findAll() {
     return this.serviceImageService.findAll();
   }
@@ -23,7 +31,10 @@ export class ServiceImageController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateServiceImageDto: UpdateServiceImageDto) {
+  update(
+    @Param('id') id: string,
+    @Body() updateServiceImageDto: UpdateServiceImageDto,
+  ) {
     return this.serviceImageService.update(+id, updateServiceImageDto);
   }
 

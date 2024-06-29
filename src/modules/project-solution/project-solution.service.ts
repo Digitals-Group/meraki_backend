@@ -15,9 +15,9 @@ export class ProjectSolutionService {
     });
   }
 
-  async findAll(query: Prisma.ProjectSolutionFindManyArgs) {
+  async findAll(body: Prisma.ProjectSolutionFindManyArgs) {
     return {
-      data: await this.prisma.projectSolution.findMany(query),
+      data: await this.prisma.projectSolution.findMany(body),
       count: await this.prisma.projectSolution.count(),
     };
   }

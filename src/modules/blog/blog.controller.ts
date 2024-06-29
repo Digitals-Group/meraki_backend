@@ -36,12 +36,10 @@ export class BlogController {
     return this.blogService.create(createBlogDto);
   }
 
-  @Get()
-    @ApiOkResponse({ type: BlogEntity, isArray: true })
-    @ApiQuery({ name: 'take', type: Number, required: false })
-    @ApiQuery({ name: 'skip', type: Number, required: false })
-  findAll(@Query() query: Prisma.BlogFindManyArgs) {
-    return this.blogService.findAll(query);
+  @Post('/list')
+  @ApiOkResponse({ type: BlogEntity, isArray: true })
+  findAll(@Body() body: Prisma.BlogFindManyArgs) {
+    return this.blogService.findAll(body);
   }
 
   @Get(':id')

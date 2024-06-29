@@ -36,12 +36,10 @@ export class CareerController {
     return this.careerService.create(createCareerDto);
   }
 
-  @Get()
+  @Post('/list')
   @ApiOkResponse({ type: CareerEntity, isArray: true })
-  @ApiQuery({ name: 'take', type: Number, required: false })
-  @ApiQuery({ name: 'skip', type: Number, required: false })
-  findAll(@Query() query: Prisma.CareerFindManyArgs) {
-    return this.careerService.findAll(query);
+  findAll(@Body() body: Prisma.CareerFindManyArgs) {
+    return this.careerService.findAll(body);
   }
 
   @Get(':id')

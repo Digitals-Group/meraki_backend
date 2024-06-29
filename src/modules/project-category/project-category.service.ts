@@ -14,9 +14,9 @@ export class ProjectCategoryService {
     });
   }
 
-  async findAll(query: Prisma.ProjectCategoryFindManyArgs) {
+  async findAll(body: Prisma.ProjectCategoryFindManyArgs) {
     return {
-      data: await this.prisma.projectCategory.findMany(query),
+      data: await this.prisma.projectCategory.findMany(body),
       count: await this.prisma.projectCategory.count(),
     };
   }

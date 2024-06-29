@@ -12,9 +12,9 @@ export class AwardsService {
     return this.prisma.awards.create({ data: createAwardDto });
   }
 
-  async findAll(query: Prisma.AwardsFindManyArgs) {
+  async findAll(body: Prisma.AwardsFindManyArgs) {
     return {
-      data: await this.prisma.awards.findMany(query),
+      data: await this.prisma.awards.findMany(body),
       count: await this.prisma.awards.count(),
     };
   }

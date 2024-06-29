@@ -36,12 +36,10 @@ export class FaqController {
     return this.faqService.create(createFaqDto);
   }
 
-  @Get()
+  @Post('/list')
   @ApiOkResponse({ type: FaqEntity, isArray: true })
-  @ApiQuery({ name: 'take', type: Number, required: false })
-  @ApiQuery({ name: 'skip', type: Number, required: false })
-  findAll(@Query() query: Prisma.FaqFindManyArgs) {
-    return this.faqService.findAll(query);
+  findAll(@Body() body: Prisma.FaqFindManyArgs) {
+    return this.faqService.findAll(body);
   }
 
   @Get(':id')

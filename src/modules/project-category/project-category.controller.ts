@@ -37,12 +37,10 @@ export class ProjectCategoryController {
     return this.projectCategoryService.create(createProjectCategoryDto);
   }
 
-  @Get()
+  @Post('/list')
   @ApiOkResponse({ type: ProjectCategoryEntity, isArray: true })
-  @ApiQuery({ name: 'take', type: Number, required: false })
-  @ApiQuery({ name: 'skip', type: Number, required: false })
-  findAll(@Query() query: Prisma.ProjectCategoryFindManyArgs) {
-    return this.projectCategoryService.findAll(query);
+  findAll(@Body() body: Prisma.ProjectCategoryFindManyArgs) {
+    return this.projectCategoryService.findAll(body);
   }
 
   @Get(':id')

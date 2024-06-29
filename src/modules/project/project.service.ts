@@ -11,9 +11,9 @@ export class ProjectService {
     return this.prisma.project.create({ data: createProjectDto });
   }
 
-  async findAll(query: Prisma.ProjectFindManyArgs) {
+  async findAll(body: Prisma.ProjectFindManyArgs) {
     return {
-      data: await this.prisma.project.findMany(query),
+      data: await this.prisma.project.findMany(body),
       count: await this.prisma.career.count(),
     };
   }

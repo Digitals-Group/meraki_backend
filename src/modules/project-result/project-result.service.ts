@@ -13,9 +13,9 @@ export class ProjectResultService {
     return this.prisma.projectResult.create({ data: createProjectResultDto });
   }
 
-  async findAll(query: Prisma.ProjectResultFindManyArgs) {
+  async findAll(body: Prisma.ProjectResultFindManyArgs) {
     return {
-      data: await this.prisma.projectResult.findMany(query),
+      data: await this.prisma.projectResult.findMany(body),
       count: await this.prisma.projectResult.count(),
     };
   }

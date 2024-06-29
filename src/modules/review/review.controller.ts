@@ -36,12 +36,10 @@ export class ReviewController {
     return this.reviewService.create(createReviewDto);
   }
 
-  @Get()
+  @Post('/list')
   @ApiOkResponse({ type: ReviewEntity, isArray: true })
-  @ApiQuery({ name: 'take', type: Number, required: false })
-  @ApiQuery({ name: 'skip', type: Number, required: false })
-  findAll(@Query() query: Prisma.ReviewFindManyArgs) {
-    return this.reviewService.findAll(query);
+  findAll(@Body() body: Prisma.ReviewFindManyArgs) {
+    return this.reviewService.findAll(body);
   }
 
   @Get(':id')

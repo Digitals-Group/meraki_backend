@@ -11,7 +11,7 @@ export class FaqService {
     return this.prisma.faq.create({ data: createFaqDto });
   }
 
-  async findAll(query: Prisma.FaqFindManyArgs) {
+  async findAll(body: Prisma.FaqFindManyArgs) {
     return {
       data: await this.prisma.faq.findMany(),
       count: await this.prisma.faq.count(),

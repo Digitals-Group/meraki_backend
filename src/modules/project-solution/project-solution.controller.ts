@@ -36,12 +36,10 @@ export class ProjectSolutionController {
     return this.projectSolutionService.create(createProjectSolutionDto);
   }
 
-  @Get()
+  @Post('/list')
   @ApiOkResponse({ type: ProjectSolutionController, isArray: true })
-  @ApiQuery({ name: 'take', type: Number, required: false })
-  @ApiQuery({ name: 'skip', type: Number, required: false })
-  findAll(@Query() query: Prisma.ProjectSolutionFindManyArgs) {
-    return this.projectSolutionService.findAll(query);
+  findAll(@Body() body: Prisma.ProjectSolutionFindManyArgs) {
+    return this.projectSolutionService.findAll(body);
   }
 
   @Get(':id')

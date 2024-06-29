@@ -36,12 +36,10 @@ export class ContactController {
     return this.contactService.create(createContactDto);
   }
 
-  @Get()
+  @Post('/list')
   @ApiOkResponse({ type: ContactEntity, isArray: true })
-  @ApiQuery({ name: 'take', type: Number, required: false })
-  @ApiQuery({ name: 'skip', type: Number, required: false })
-  findAll(@Query() query: Prisma.ContactFindManyArgs) {
-    return this.contactService.findAll(query);
+  findAll(@Body() body: Prisma.ContactFindManyArgs) {
+    return this.contactService.findAll(body);
   }
 
   @Get(':id')

@@ -36,12 +36,10 @@ export class PartnersController {
     return this.partnersService.create(createPartnerDto);
   }
 
-  @Get()
+  @Post('/list')
   @ApiOkResponse({ type: PartnerEntity, isArray: true })
-  @ApiQuery({ name: 'take', type: Number, required: false })
-  @ApiQuery({ name: 'skip', type: Number, required: false })
-  findAll(@Query() query: Prisma.PartnersFindManyArgs) {
-    return this.partnersService.findAll(query);
+  findAll(@Body() body: Prisma.PartnersFindManyArgs) {
+    return this.partnersService.findAll(body);
   }
 
   @Get(':id')

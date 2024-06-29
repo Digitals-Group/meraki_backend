@@ -13,9 +13,9 @@ export class ContactService {
     return this.prisma.contact.create({ data: createContactDto });
   }
 
-  async findAll(query: Prisma.ContactFindManyArgs) {
+  async findAll(body: Prisma.ContactFindManyArgs) {
     return {
-      data: await this.prisma.contact.findMany(query),
+      data: await this.prisma.contact.findMany(body),
       count: await this.prisma.contact.count(),
     };
   }

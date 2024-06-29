@@ -17,18 +17,9 @@ export class UsersService {
     return this.prisma.user.create({ data: createUserDto });
   }
 
-  async findAll(query: Prisma.UserFindManyArgs) {
+  async findAll(body: Prisma.UserFindManyArgs) {
     return {
-      data: await this.prisma.user.findMany({
-        include: {
-          roles: true,
-        },
-        skip: query.skip,
-        take: query.take,
-        orderBy: {
-          createdAt: 'desc',
-        },
-      }),
+      data: await this.prisma.user.findMany(body),
       count: await this.prisma.user.count(),
     };
   }

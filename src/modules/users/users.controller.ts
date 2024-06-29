@@ -29,9 +29,9 @@ export class UsersController {
     return this.usersService.create(createUserDto);
   }
 
-  @Get()
-  findAll(@Query() query: Prisma.UserFindManyArgs) {
-    return this.usersService.findAll(query);
+  @Post()
+  findAll(@Body() body: Prisma.UserFindManyArgs) {
+    return this.usersService.findAll(body);
   }
 
   @Get(':id')

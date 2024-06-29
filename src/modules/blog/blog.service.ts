@@ -13,9 +13,9 @@ export class BlogService {
     return this.prisma.blog.create({ data: createBlogDto });
   }
 
-  async findAll(query: Prisma.BlogFindManyArgs) {
+  async findAll(body: Prisma.BlogFindManyArgs) {
     return {
-      data: await this.prisma.blog.findMany(query),
+      data: await this.prisma.blog.findMany(body),
       count: await this.prisma.blog.count(),
     };
   }

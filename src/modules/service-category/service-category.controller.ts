@@ -1,18 +1,28 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+} from '@nestjs/common';
 import { ServiceCategoryService } from './service-category.service';
 import { CreateServiceCategoryDto } from './dto/create-service-category.dto';
 import { UpdateServiceCategoryDto } from './dto/update-service-category.dto';
 
 @Controller('service-category')
 export class ServiceCategoryController {
-  constructor(private readonly serviceCategoryService: ServiceCategoryService) {}
+  constructor(
+    private readonly serviceCategoryService: ServiceCategoryService,
+  ) {}
 
   @Post()
   create(@Body() createServiceCategoryDto: CreateServiceCategoryDto) {
     return this.serviceCategoryService.create(createServiceCategoryDto);
   }
 
-  @Get()
+  @Post()
   findAll() {
     return this.serviceCategoryService.findAll();
   }
@@ -23,7 +33,10 @@ export class ServiceCategoryController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateServiceCategoryDto: UpdateServiceCategoryDto) {
+  update(
+    @Param('id') id: string,
+    @Body() updateServiceCategoryDto: UpdateServiceCategoryDto,
+  ) {
     return this.serviceCategoryService.update(+id, updateServiceCategoryDto);
   }
 

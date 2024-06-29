@@ -1,4 +1,12 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+} from '@nestjs/common';
 import { ServiceStepService } from './service-step.service';
 import { CreateServiceStepDto } from './dto/create-service-step.dto';
 import { UpdateServiceStepDto } from './dto/update-service-step.dto';
@@ -12,7 +20,7 @@ export class ServiceStepController {
     return this.serviceStepService.create(createServiceStepDto);
   }
 
-  @Get()
+  @Post()
   findAll() {
     return this.serviceStepService.findAll();
   }
@@ -23,7 +31,10 @@ export class ServiceStepController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateServiceStepDto: UpdateServiceStepDto) {
+  update(
+    @Param('id') id: string,
+    @Body() updateServiceStepDto: UpdateServiceStepDto,
+  ) {
     return this.serviceStepService.update(+id, updateServiceStepDto);
   }
 

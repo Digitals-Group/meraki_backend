@@ -12,9 +12,9 @@ export class PartnersService {
     return this.prisma.partners.create({ data: createPartnerDto });
   }
 
-  async findAll(query: Prisma.PartnersFindManyArgs) {
+  async findAll(body: Prisma.PartnersFindManyArgs) {
     return {
-      data: await this.prisma.partners.findMany(query),
+      data: await this.prisma.partners.findMany(body),
       count: await this.prisma.partners.count(),
     };
   }

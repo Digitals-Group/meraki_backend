@@ -35,12 +35,10 @@ export class AwardsController {
     return this.awardsService.create(createAwardDto);
   }
 
-  @Get()
+  @Post('/list')
   @ApiOkResponse({ type: AwardEntity, isArray: true })
-  @ApiQuery({ name: 'take', type: Number, required: false })
-  @ApiQuery({ name: 'skip', type: Number, required: false })
-  findAll(@Query() query: Prisma.AwardsFindManyArgs) {
-    return this.awardsService.findAll(query);
+  findAll(@Body() body: Prisma.AwardsFindManyArgs) {
+    return this.awardsService.findAll(body);
   }
 
   @Get(':id')

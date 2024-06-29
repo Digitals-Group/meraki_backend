@@ -11,9 +11,9 @@ export class ReviewService {
     return this.prisma.review.create({ data: createReviewDto });
   }
 
-  async findAll(query: Prisma.ReviewFindManyArgs) {
+  async findAll(body: Prisma.ReviewFindManyArgs) {
     return {
-      data: await this.prisma.review.findMany(query),
+      data: await this.prisma.review.findMany(body),
       count: await this.prisma.review.count(),
     };
   }

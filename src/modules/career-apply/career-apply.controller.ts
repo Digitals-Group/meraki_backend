@@ -35,11 +35,11 @@ export class CareerApplyController {
     return this.careerApplyService.create(createCareerApplyDto);
   }
 
-  @Get()
+  @Post('/list')
   @ApiOkResponse({ type: CareerApplyEntity, isArray: true })
   @ApiQuery({ name: 'take', type: Number, required: false })
-  findAll(@Query() query: Prisma.CareerApplyFindManyArgs) {
-    return this.careerApplyService.findAll(query);
+  findAll(@Body() body: Prisma.CareerApplyFindManyArgs) {
+    return this.careerApplyService.findAll(body);
   }
 
   @Get(':id')
