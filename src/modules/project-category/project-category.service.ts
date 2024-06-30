@@ -1,6 +1,4 @@
 import { Injectable } from '@nestjs/common';
-import { CreateProjectCategoryDto } from './dto/create-project-category.dto';
-import { UpdateProjectCategoryDto } from './dto/update-project-category.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { Prisma } from '@prisma/client';
 
@@ -8,10 +6,8 @@ import { Prisma } from '@prisma/client';
 export class ProjectCategoryService {
   constructor(private readonly prisma: PrismaService) {}
 
-  create(createProjectCategoryDto: CreateProjectCategoryDto) {
-    return this.prisma.projectCategory.create({
-      data: createProjectCategoryDto,
-    });
+  create(createProjectCategoryDto: Prisma.ProjectCategoryCreateArgs) {
+    return this.prisma.projectCategory.create(createProjectCategoryDto);
   }
 
   async findAll(body: Prisma.ProjectCategoryFindManyArgs) {
@@ -25,11 +21,11 @@ export class ProjectCategoryService {
     return this.prisma.projectCategory.findUnique({ where: { id } });
   }
 
-  update(id: string, updateProjectCategoryDto: UpdateProjectCategoryDto) {
-    return this.prisma.projectCategory.update({
-      where: { id },
-      data: updateProjectCategoryDto,
-    });
+  update(
+    id: string,
+    updateProjectCategoryDto: Prisma.ProjectCategoryUpdateArgs,
+  ) {
+    return this.prisma.projectCategory.update(updateProjectCategoryDto);
   }
 
   remove(id: string) {

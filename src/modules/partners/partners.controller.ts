@@ -11,16 +11,12 @@ import {
   ParseUUIDPipe,
 } from '@nestjs/common';
 import { PartnersService } from './partners.service';
-import { CreatePartnerDto } from './dto/create-partner.dto';
-import { UpdatePartnerDto } from './dto/update-partner.dto';
 import {
   ApiBearerAuth,
   ApiOkResponse,
   ApiQuery,
   ApiTags,
 } from '@nestjs/swagger';
-import { PartnerEntity } from './entities/partner.entity';
-
 import { JwtAuthGuard } from 'src/common/guards/auth.guard';
 import { Prisma } from '@prisma/client';
 
@@ -32,12 +28,11 @@ export class PartnersController {
   constructor(private readonly partnersService: PartnersService) {}
 
   @Post()
-  create(@Body() createPartnerDto: CreatePartnerDto) {
+  create(@Body() createPartnerDto: Prisma.PartnersCreateArgs) {
     return this.partnersService.create(createPartnerDto);
   }
 
   @Post('/list')
-  @ApiOkResponse({ type: PartnerEntity, isArray: true })
   findAll(@Body() body: Prisma.PartnersFindManyArgs) {
     return this.partnersService.findAll(body);
   }
@@ -50,7 +45,7 @@ export class PartnersController {
   @Patch(':id')
   update(
     @Param('id', new ParseUUIDPipe()) id: string,
-    @Body() updatePartnerDto: UpdatePartnerDto,
+    @Body() updatePartnerDto: Prisma.PartnersUpdateArgs,
   ) {
     return this.partnersService.update(id, updatePartnerDto);
   }

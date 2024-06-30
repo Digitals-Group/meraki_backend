@@ -11,15 +11,12 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { AwardsService } from './awards.service';
-import { CreateAwardDto } from './dto/create-award.dto';
-import { UpdateAwardDto } from './dto/update-award.dto';
 import {
   ApiBearerAuth,
   ApiOkResponse,
   ApiQuery,
   ApiTags,
 } from '@nestjs/swagger';
-import { AwardEntity } from './entities/award.entity';
 import { JwtAuthGuard } from 'src/common/guards/auth.guard';
 import { Prisma } from '@prisma/client';
 
@@ -31,12 +28,11 @@ export class AwardsController {
   constructor(private readonly awardsService: AwardsService) {}
 
   @Post()
-  create(@Body() createAwardDto: CreateAwardDto) {
+  create(@Body() createAwardDto: Prisma.AwardsCreateArgs) {
     return this.awardsService.create(createAwardDto);
   }
 
   @Post('/list')
-  @ApiOkResponse({ type: AwardEntity, isArray: true })
   findAll(@Body() body: Prisma.AwardsFindManyArgs) {
     return this.awardsService.findAll(body);
   }
@@ -49,7 +45,7 @@ export class AwardsController {
   @Patch(':id')
   update(
     @Param('id', new ParseUUIDPipe()) id: string,
-    @Body() updateAwardDto: UpdateAwardDto,
+    @Body() updateAwardDto: Prisma.AwardsUpdateArgs,
   ) {
     return this.awardsService.update(id, updateAwardDto);
   }

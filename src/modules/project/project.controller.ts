@@ -11,8 +11,6 @@ import {
   ParseUUIDPipe,
 } from '@nestjs/common';
 import { ProjectService } from './project.service';
-import { CreateProjectDto } from './dto/create-project.dto';
-import { UpdateProjectDto } from './dto/update-project.dto';
 import {
   ApiBearerAuth,
   ApiOkResponse,
@@ -20,7 +18,6 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 import { JwtAuthGuard } from 'src/common/guards/auth.guard';
-import { ProjectEntity } from './entities/project.entity';
 import { Prisma } from '@prisma/client';
 
 @Controller('project')
@@ -31,12 +28,11 @@ export class ProjectController {
   constructor(private readonly projectService: ProjectService) {}
 
   @Post()
-  create(@Body() createProjectDto: CreateProjectDto) {
+  create(@Body() createProjectDto: Prisma.ProjectCreateArgs) {
     return this.projectService.create(createProjectDto);
   }
 
   @Post('/list')
-  @ApiOkResponse({ type: ProjectEntity, isArray: true })
   findAll(@Body() body: Prisma.ProjectFindManyArgs) {
     return this.projectService.findAll(body);
   }
@@ -49,7 +45,7 @@ export class ProjectController {
   @Patch(':id')
   update(
     @Param('id', new ParseUUIDPipe()) id: string,
-    @Body() updateProjectDto: UpdateProjectDto,
+    @Body() updateProjectDto: Prisma.ProjectUpdateArgs,
   ) {
     return this.projectService.update(id, updateProjectDto);
   }

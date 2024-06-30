@@ -1,6 +1,4 @@
 import { Injectable } from '@nestjs/common';
-import { CreateContactDto } from './dto/create-contact.dto';
-import { UpdateContactDto } from './dto/update-contact.dto';
 
 import { PrismaService } from 'src/prisma/prisma.service';
 import { Prisma } from '@prisma/client';
@@ -9,8 +7,8 @@ import { Prisma } from '@prisma/client';
 export class ContactService {
   constructor(private readonly prisma: PrismaService) {}
 
-  create(createContactDto: CreateContactDto) {
-    return this.prisma.contact.create({ data: createContactDto });
+  create(createContactDto: Prisma.ContactCreateArgs) {
+    return this.prisma.contact.create(createContactDto);
   }
 
   async findAll(body: Prisma.ContactFindManyArgs) {
@@ -24,11 +22,8 @@ export class ContactService {
     return this.prisma.contact.findUnique({ where: { id } });
   }
 
-  update(id: string, updateContactDto: UpdateContactDto) {
-    return this.prisma.contact.update({
-      where: { id },
-      data: updateContactDto,
-    });
+  update(id: string, updateContactDto: Prisma.ContactUpdateArgs) {
+    return this.prisma.contact.update(updateContactDto);
   }
 
   remove(id: string) {

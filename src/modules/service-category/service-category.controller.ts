@@ -10,12 +10,9 @@ import {
   ParseUUIDPipe,
 } from '@nestjs/common';
 import { ServiceCategoryService } from './service-category.service';
-import { CreateServiceCategoryDto } from './dto/create-service-category.dto';
-import { UpdateServiceCategoryDto } from './dto/update-service-category.dto';
 import { Prisma } from '@prisma/client';
 import { ApiBearerAuth, ApiOkResponse, ApiTags } from '@nestjs/swagger';
 import { JwtAuthGuard } from 'src/common/guards/auth.guard';
-import { ServiceCategoryEntity } from './entities/service-category.entity';
 
 @Controller('service-category')
 @ApiBearerAuth()
@@ -27,12 +24,11 @@ export class ServiceCategoryController {
   ) {}
 
   @Post()
-  create(@Body() createServiceCategoryDto: CreateServiceCategoryDto) {
+  create(@Body() createServiceCategoryDto: Prisma.ServiceCategoryCreateArgs) {
     return this.serviceCategoryService.create(createServiceCategoryDto);
   }
 
   @Post('/list')
-  @ApiOkResponse({ type: ServiceCategoryEntity, isArray: true })
   findAll(@Body() body: Prisma.ServiceCategoryFindManyArgs) {
     return this.serviceCategoryService.findAll(body);
   }
@@ -45,7 +41,7 @@ export class ServiceCategoryController {
   @Patch(':id')
   update(
     @Param('id', new ParseUUIDPipe()) id: string,
-    @Body() updateServiceCategoryDto: UpdateServiceCategoryDto,
+    @Body() updateServiceCategoryDto: Prisma.ServiceCategoryUpdateArgs,
   ) {
     return this.serviceCategoryService.update(id, updateServiceCategoryDto);
   }

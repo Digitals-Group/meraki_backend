@@ -10,11 +10,8 @@ import {
   ParseUUIDPipe,
 } from '@nestjs/common';
 import { ServiceService } from './service.service';
-import { CreateServiceDto } from './dto/create-service.dto';
-import { UpdateServiceDto } from './dto/update-service.dto';
 import { ApiBearerAuth, ApiOkResponse, ApiTags } from '@nestjs/swagger';
 import { JwtAuthGuard } from 'src/common/guards/auth.guard';
-import { ServiceEntity } from './entities/service.entity';
 import { Prisma } from '@prisma/client';
 
 @Controller('service')
@@ -25,12 +22,11 @@ export class ServiceController {
   constructor(private readonly serviceService: ServiceService) {}
 
   @Post()
-  create(@Body() createServiceDto: CreateServiceDto) {
+  create(@Body() createServiceDto: Prisma.ServiceCreateArgs) {
     return this.serviceService.create(createServiceDto);
   }
 
   @Post('/list')
-  @ApiOkResponse({ type: ServiceEntity, isArray: true })
   findAll(@Body() body: Prisma.ServiceFindManyArgs) {
     return this.serviceService.findAll(body);
   }
@@ -43,7 +39,7 @@ export class ServiceController {
   @Patch(':id')
   update(
     @Param('id', new ParseUUIDPipe()) id: string,
-    @Body() updateServiceDto: UpdateServiceDto,
+    @Body() updateServiceDto: Prisma.ServiceUpdateArgs,
   ) {
     return this.serviceService.update(id, updateServiceDto);
   }

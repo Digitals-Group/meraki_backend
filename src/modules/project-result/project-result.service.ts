@@ -1,6 +1,4 @@
 import { Injectable } from '@nestjs/common';
-import { CreateProjectResultDto } from './dto/create-project-result.dto';
-import { UpdateProjectResultDto } from './dto/update-project-result.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { Prisma } from '@prisma/client';
 import { count } from 'console';
@@ -9,8 +7,8 @@ import { count } from 'console';
 export class ProjectResultService {
   constructor(private readonly prisma: PrismaService) {}
 
-  create(createProjectResultDto: CreateProjectResultDto) {
-    return this.prisma.projectResult.create({ data: createProjectResultDto });
+  create(createProjectResultDto: Prisma.ProjectResultCreateArgs) {
+    return this.prisma.projectResult.create(createProjectResultDto);
   }
 
   async findAll(body: Prisma.ProjectResultFindManyArgs) {
@@ -24,11 +22,8 @@ export class ProjectResultService {
     return this.prisma.projectResult.findUnique({ where: { id } });
   }
 
-  update(id: string, updateProjectResultDto: UpdateProjectResultDto) {
-    return this.prisma.projectResult.update({
-      where: { id },
-      data: updateProjectResultDto,
-    });
+  update(id: string, updateProjectResultDto: Prisma.ProjectResultUpdateArgs) {
+    return this.prisma.projectResult.update(updateProjectResultDto);
   }
 
   remove(id: string) {

@@ -11,15 +11,12 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { ProjectCategoryService } from './project-category.service';
-import { CreateProjectCategoryDto } from './dto/create-project-category.dto';
-import { UpdateProjectCategoryDto } from './dto/update-project-category.dto';
 import {
   ApiBearerAuth,
   ApiOkResponse,
   ApiQuery,
   ApiTags,
 } from '@nestjs/swagger';
-import { ProjectCategoryEntity } from './entities/project-category.entity';
 import { Prisma } from '@prisma/client';
 import { JwtAuthGuard } from 'src/common/guards/auth.guard';
 
@@ -33,12 +30,11 @@ export class ProjectCategoryController {
   ) {}
 
   @Post()
-  create(@Body() createProjectCategoryDto: CreateProjectCategoryDto) {
+  create(@Body() createProjectCategoryDto: Prisma.ProjectCategoryCreateArgs) {
     return this.projectCategoryService.create(createProjectCategoryDto);
   }
 
   @Post('/list')
-  @ApiOkResponse({ type: ProjectCategoryEntity, isArray: true })
   findAll(@Body() body: Prisma.ProjectCategoryFindManyArgs) {
     return this.projectCategoryService.findAll(body);
   }
@@ -51,7 +47,7 @@ export class ProjectCategoryController {
   @Patch(':id')
   update(
     @Param('id', new ParseUUIDPipe()) id: string,
-    @Body() updateProjectCategoryDto: UpdateProjectCategoryDto,
+    @Body() updateProjectCategoryDto: Prisma.ProjectCategoryUpdateArgs,
   ) {
     return this.projectCategoryService.update(id, updateProjectCategoryDto);
   }

@@ -11,15 +11,12 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { BlogService } from './blog.service';
-import { CreateBlogDto } from './dto/create-blog.dto';
-import { UpdateBlogDto } from './dto/update-blog.dto';
 import {
   ApiBearerAuth,
   ApiOkResponse,
   ApiQuery,
   ApiTags,
 } from '@nestjs/swagger';
-import { BlogEntity } from './entities/blog.entity';
 
 import { JwtAuthGuard } from 'src/common/guards/auth.guard';
 import { Prisma } from '@prisma/client';
@@ -32,12 +29,11 @@ export class BlogController {
   constructor(private readonly blogService: BlogService) {}
 
   @Post()
-  create(@Body() createBlogDto: CreateBlogDto) {
+  create(@Body() createBlogDto: Prisma.BlogCreateArgs) {
     return this.blogService.create(createBlogDto);
   }
 
   @Post('/list')
-  @ApiOkResponse({ type: BlogEntity, isArray: true })
   findAll(@Body() body: Prisma.BlogFindManyArgs) {
     return this.blogService.findAll(body);
   }
@@ -50,7 +46,7 @@ export class BlogController {
   @Patch(':id')
   update(
     @Param('id', new ParseUUIDPipe()) id: string,
-    @Body() updateBlogDto: UpdateBlogDto,
+    @Body() updateBlogDto: Prisma.BlogUpdateArgs,
   ) {
     return this.blogService.update(id, updateBlogDto);
   }

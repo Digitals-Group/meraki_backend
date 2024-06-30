@@ -1,6 +1,4 @@
 import { Injectable } from '@nestjs/common';
-import { CreateCareerApplyDto } from './dto/create-career-apply.dto';
-import { UpdateCareerApplyDto } from './dto/update-career-apply.dto';
 
 import { PrismaService } from 'src/prisma/prisma.service';
 import { Prisma } from '@prisma/client';
@@ -9,8 +7,8 @@ import { Prisma } from '@prisma/client';
 export class CareerApplyService {
   constructor(private readonly prisma: PrismaService) {}
 
-  create(createCareerApplyDto: CreateCareerApplyDto) {
-    return this.prisma.careerApply.create({ data: createCareerApplyDto });
+  create(createCareerApplyDto: Prisma.CareerApplyCreateArgs) {
+    return this.prisma.careerApply.create(createCareerApplyDto);
   }
 
   async findAll(body: Prisma.CareerApplyFindManyArgs) {
@@ -24,11 +22,8 @@ export class CareerApplyService {
     return this.prisma.careerApply.findUnique({ where: { id } });
   }
 
-  update(id: string, updateCareerApplyDto: UpdateCareerApplyDto) {
-    return this.prisma.careerApply.update({
-      where: { id },
-      data: updateCareerApplyDto,
-    });
+  update(id: string, updateCareerApplyDto: Prisma.CareerApplyUpdateArgs) {
+    return this.prisma.careerApply.update(updateCareerApplyDto);
   }
 
   remove(id: string) {

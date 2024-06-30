@@ -11,8 +11,6 @@ import {
   Query,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
-import { CreateUserDto } from './dto/create-user.dto';
-import { UpdateUserDto } from './dto/update-user.dto';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { JwtAuthGuard } from 'src/common/guards/auth.guard';
 import { Prisma } from '@prisma/client';
@@ -25,7 +23,7 @@ export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
   @Post()
-  create(@Body() createUserDto: CreateUserDto) {
+  create(@Body() createUserDto: Prisma.UserCreateArgs) {
     return this.usersService.create(createUserDto);
   }
 
@@ -42,7 +40,7 @@ export class UsersController {
   @Patch(':id')
   update(
     @Param('id', new ParseUUIDPipe()) id: string,
-    @Body() updateUserDto: UpdateUserDto,
+    @Body() updateUserDto: Prisma.UserUpdateArgs,
   ) {
     return this.usersService.update(id, updateUserDto);
   }

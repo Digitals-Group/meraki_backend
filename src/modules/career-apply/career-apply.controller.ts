@@ -11,15 +11,12 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { CareerApplyService } from './career-apply.service';
-import { CreateCareerApplyDto } from './dto/create-career-apply.dto';
-import { UpdateCareerApplyDto } from './dto/update-career-apply.dto';
 import {
   ApiBearerAuth,
   ApiOkResponse,
   ApiQuery,
   ApiTags,
 } from '@nestjs/swagger';
-import { CareerApplyEntity } from './entities/career-apply.entity';
 import { JwtAuthGuard } from 'src/common/guards/auth.guard';
 import { Prisma } from '@prisma/client';
 
@@ -31,12 +28,11 @@ export class CareerApplyController {
   constructor(private readonly careerApplyService: CareerApplyService) {}
 
   @Post()
-  create(@Body() createCareerApplyDto: CreateCareerApplyDto) {
+  create(@Body() createCareerApplyDto: Prisma.CareerApplyCreateArgs) {
     return this.careerApplyService.create(createCareerApplyDto);
   }
 
   @Post('/list')
-  @ApiOkResponse({ type: CareerApplyEntity, isArray: true })
   @ApiQuery({ name: 'take', type: Number, required: false })
   findAll(@Body() body: Prisma.CareerApplyFindManyArgs) {
     return this.careerApplyService.findAll(body);
@@ -50,7 +46,7 @@ export class CareerApplyController {
   @Patch(':id')
   update(
     @Param('id', new ParseUUIDPipe()) id: string,
-    @Body() updateCareerApplyDto: UpdateCareerApplyDto,
+    @Body() updateCareerApplyDto: Prisma.CareerApplyUpdateArgs,
   ) {
     return this.careerApplyService.update(id, updateCareerApplyDto);
   }

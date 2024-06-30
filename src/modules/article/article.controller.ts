@@ -11,10 +11,7 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { ArticleService } from './article.service';
-import { CreateArticleDto } from './dto/create-article.dto';
-import { UpdateArticleDto } from './dto/update-article.dto';
 import { Prisma } from '@prisma/client';
-import { ArticleEntity } from './entities/article.entity';
 import { ApiBearerAuth, ApiOkResponse, ApiTags } from '@nestjs/swagger';
 import { JwtAuthGuard } from 'src/common/guards/auth.guard';
 
@@ -26,12 +23,11 @@ export class ArticleController {
   constructor(private readonly articleService: ArticleService) {}
 
   @Post()
-  create(@Body() createArticleDto: CreateArticleDto) {
+  create(@Body() createArticleDto: Prisma.ArticleCreateArgs) {
     return this.articleService.create(createArticleDto);
   }
 
   @Post('/list')
-  @ApiOkResponse({ type: ArticleEntity, isArray: true })
   findAll(@Body() body: Prisma.ArticleFindManyArgs) {
     return this.articleService.findAll(body);
   }
@@ -44,7 +40,7 @@ export class ArticleController {
   @Patch(':id')
   update(
     @Param('id', new ParseUUIDPipe()) id: string,
-    @Body() updateArticleDto: UpdateArticleDto,
+    @Body() updateArticleDto: Prisma.ArticleUpdateArgs,
   ) {
     return this.articleService.update(id, updateArticleDto);
   }

@@ -1,6 +1,4 @@
 import { Injectable } from '@nestjs/common';
-import { CreateServiceStepDto } from './dto/create-service-step.dto';
-import { UpdateServiceStepDto } from './dto/update-service-step.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { Prisma } from '@prisma/client';
 import { count } from 'console';
@@ -8,8 +6,8 @@ import { count } from 'console';
 @Injectable()
 export class ServiceStepService {
   constructor(private readonly prisma: PrismaService) {}
-  create(createServiceStepDto: CreateServiceStepDto) {
-    return this.prisma.serviceStep.create({ data: createServiceStepDto });
+  create(createServiceStepDto: Prisma.ServiceStepCreateArgs) {
+    return this.prisma.serviceStep.create(createServiceStepDto);
   }
 
   async findAll(body: Prisma.ServiceStepFindManyArgs) {
@@ -23,11 +21,8 @@ export class ServiceStepService {
     return this.prisma.serviceStep.findUnique({ where: { id } });
   }
 
-  update(id: string, updateServiceStepDto: UpdateServiceStepDto) {
-    return this.prisma.serviceStep.update({
-      where: { id },
-      data: updateServiceStepDto,
-    });
+  update(id: string, updateServiceStepDto: Prisma.ServiceStepUpdateArgs) {
+    return this.prisma.serviceStep.update(updateServiceStepDto);
   }
 
   remove(id: string) {

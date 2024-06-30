@@ -1,18 +1,13 @@
 import { Injectable } from '@nestjs/common';
-import { CreateProjectSolutionDto } from './dto/create-project-solution.dto';
-import { UpdateProjectSolutionDto } from './dto/update-project-solution.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { Prisma } from '@prisma/client';
-import { count } from 'console';
 
 @Injectable()
 export class ProjectSolutionService {
   constructor(private readonly prisma: PrismaService) {}
 
-  create(createProjectSolutionDto: CreateProjectSolutionDto) {
-    return this.prisma.projectSolution.create({
-      data: createProjectSolutionDto,
-    });
+  create(createProjectSolutionDto: Prisma.ProjectSolutionCreateArgs) {
+    return this.prisma.projectSolution.create(createProjectSolutionDto);
   }
 
   async findAll(body: Prisma.ProjectSolutionFindManyArgs) {
@@ -26,11 +21,11 @@ export class ProjectSolutionService {
     return this.prisma.projectSolution.findUnique({ where: { id } });
   }
 
-  update(id: string, updateProjectSolutionDto: UpdateProjectSolutionDto) {
-    return this.prisma.projectSolution.update({
-      where: { id },
-      data: updateProjectSolutionDto,
-    });
+  update(
+    id: string,
+    updateProjectSolutionDto: Prisma.ProjectSolutionUpdateArgs,
+  ) {
+    return this.prisma.projectSolution.update(updateProjectSolutionDto);
   }
 
   remove(id: string) {

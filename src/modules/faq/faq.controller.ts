@@ -11,15 +11,12 @@ import {
   ParseUUIDPipe,
 } from '@nestjs/common';
 import { FaqService } from './faq.service';
-import { CreateFaqDto } from './dto/create-faq.dto';
-import { UpdateFaqDto } from './dto/update-faq.dto';
 import {
   ApiBearerAuth,
   ApiOkResponse,
   ApiQuery,
   ApiTags,
 } from '@nestjs/swagger';
-import { FaqEntity } from './entities/faq.entity';
 
 import { JwtAuthGuard } from 'src/common/guards/auth.guard';
 import { Prisma } from '@prisma/client';
@@ -32,12 +29,11 @@ export class FaqController {
   constructor(private readonly faqService: FaqService) {}
 
   @Post()
-  create(@Body() createFaqDto: CreateFaqDto) {
+  create(@Body() createFaqDto: Prisma.FaqCreateArgs) {
     return this.faqService.create(createFaqDto);
   }
 
   @Post('/list')
-  @ApiOkResponse({ type: FaqEntity, isArray: true })
   findAll(@Body() body: Prisma.FaqFindManyArgs) {
     return this.faqService.findAll(body);
   }
@@ -50,7 +46,7 @@ export class FaqController {
   @Patch(':id')
   update(
     @Param('id', new ParseUUIDPipe()) id: string,
-    @Body() updateFaqDto: UpdateFaqDto,
+    @Body() updateFaqDto: Prisma.FaqUpdateArgs,
   ) {
     return this.faqService.update(id, updateFaqDto);
   }

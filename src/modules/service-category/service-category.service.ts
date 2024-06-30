@@ -1,6 +1,4 @@
 import { Injectable } from '@nestjs/common';
-import { CreateServiceCategoryDto } from './dto/create-service-category.dto';
-import { UpdateServiceCategoryDto } from './dto/update-service-category.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { Prisma, PrismaClient } from '@prisma/client';
 import { count } from 'console';
@@ -8,10 +6,8 @@ import { count } from 'console';
 @Injectable()
 export class ServiceCategoryService {
   constructor(private readonly prisma: PrismaService) {}
-  create(createServiceCategoryDto: CreateServiceCategoryDto) {
-    return this.prisma.serviceCategory.create({
-      data: createServiceCategoryDto,
-    });
+  create(createServiceCategoryDto: Prisma.ServiceCategoryCreateArgs) {
+    return this.prisma.serviceCategory.create(createServiceCategoryDto);
   }
 
   async findAll(body: Prisma.ServiceCategoryFindManyArgs) {
@@ -25,11 +21,11 @@ export class ServiceCategoryService {
     return this.prisma.serviceCategory.findUnique({ where: { id } });
   }
 
-  update(id: string, updateServiceCategoryDto: UpdateServiceCategoryDto) {
-    return this.prisma.serviceCategory.update({
-      where: { id },
-      data: updateServiceCategoryDto,
-    });
+  update(
+    id: string,
+    updateServiceCategoryDto: Prisma.ServiceCategoryUpdateArgs,
+  ) {
+    return this.prisma.serviceCategory.update(updateServiceCategoryDto);
   }
 
   remove(id: string) {

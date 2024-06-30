@@ -11,8 +11,6 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { ProjectSolutionService } from './project-solution.service';
-import { CreateProjectSolutionDto } from './dto/create-project-solution.dto';
-import { UpdateProjectSolutionDto } from './dto/update-project-solution.dto';
 import {
   ApiBearerAuth,
   ApiOkResponse,
@@ -32,7 +30,7 @@ export class ProjectSolutionController {
   ) {}
 
   @Post()
-  create(@Body() createProjectSolutionDto: CreateProjectSolutionDto) {
+  create(@Body() createProjectSolutionDto: Prisma.ProjectSolutionCreateArgs) {
     return this.projectSolutionService.create(createProjectSolutionDto);
   }
 
@@ -50,7 +48,7 @@ export class ProjectSolutionController {
   @Patch(':id')
   update(
     @Param('id', new ParseUUIDPipe()) id: string,
-    @Body() updateProjectSolutionDto: UpdateProjectSolutionDto,
+    @Body() updateProjectSolutionDto: Prisma.ProjectSolutionUpdateArgs,
   ) {
     return this.projectSolutionService.update(id, updateProjectSolutionDto);
   }

@@ -1,14 +1,12 @@
 import { Injectable } from '@nestjs/common';
-import { CreateServiceImageDto } from './dto/create-service-image.dto';
-import { UpdateServiceImageDto } from './dto/update-service-image.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { Prisma } from '@prisma/client';
 
 @Injectable()
 export class ServiceImageService {
   constructor(private readonly prisma: PrismaService) {}
-  create(createServiceImageDto: CreateServiceImageDto) {
-    return this.prisma.serviceImages.create({ data: createServiceImageDto });
+  create(createServiceImageDto: Prisma.ServiceImagesCreateArgs) {
+    return this.prisma.serviceImages.create(createServiceImageDto);
   }
 
   async findAll(body: Prisma.ServiceImagesFindFirstArgs) {
@@ -22,11 +20,8 @@ export class ServiceImageService {
     return this.prisma.serviceImages.findUnique({ where: { id } });
   }
 
-  update(id: string, updateServiceImageDto: UpdateServiceImageDto) {
-    return this.prisma.serviceImages.update({
-      where: { id },
-      data: updateServiceImageDto,
-    });
+  update(id: string, updateServiceImageDto: Prisma.ServiceImagesUpdateArgs) {
+    return this.prisma.serviceImages.update(updateServiceImageDto);
   }
 
   remove(id: string) {

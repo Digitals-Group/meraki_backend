@@ -1,14 +1,13 @@
 import { Injectable } from '@nestjs/common';
-import { CreateReviewDto } from './dto/create-review.dto';
-import { UpdateReviewDto } from './dto/update-review.dto';
+
 import { PrismaService } from 'src/prisma/prisma.service';
 import { Prisma } from '@prisma/client';
 
 @Injectable()
 export class ReviewService {
   constructor(private readonly prisma: PrismaService) {}
-  create(createReviewDto: CreateReviewDto) {
-    return this.prisma.review.create({ data: createReviewDto });
+  create(createReviewDto: Prisma.ReviewCreateArgs) {
+    return this.prisma.review.create(createReviewDto);
   }
 
   async findAll(body: Prisma.ReviewFindManyArgs) {
@@ -21,8 +20,8 @@ export class ReviewService {
     return this.prisma.review.findUnique({ where: { id } });
   }
 
-  update(id: string, updateReviewDto: UpdateReviewDto) {
-    return this.prisma.review.update({ where: { id }, data: updateReviewDto });
+  update(id: string, updateReviewDto: Prisma.ReviewUpdateArgs) {
+    return this.prisma.review.update(updateReviewDto);
   }
 
   remove(id: string) {

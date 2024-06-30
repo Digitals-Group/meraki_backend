@@ -10,12 +10,9 @@ import {
   ParseUUIDPipe,
 } from '@nestjs/common';
 import { ServiceImageService } from './service-image.service';
-import { CreateServiceImageDto } from './dto/create-service-image.dto';
-import { UpdateServiceImageDto } from './dto/update-service-image.dto';
 import { ApiBearerAuth, ApiOkResponse, ApiTags } from '@nestjs/swagger';
 import { JwtAuthGuard } from 'src/common/guards/auth.guard';
 import { Prisma } from '@prisma/client';
-import { ServiceImageEntity } from './entities/service-image.entity';
 
 @Controller('service-image')
 @ApiBearerAuth()
@@ -25,12 +22,11 @@ export class ServiceImageController {
   constructor(private readonly serviceImageService: ServiceImageService) {}
 
   @Post()
-  create(@Body() createServiceImageDto: CreateServiceImageDto) {
+  create(@Body() createServiceImageDto: Prisma.ServiceImagesCreateArgs) {
     return this.serviceImageService.create(createServiceImageDto);
   }
 
   @Post('/list')
-  @ApiOkResponse({ type: ServiceImageEntity, isArray: true })
   findAll(@Body() body: Prisma.ServiceImagesFindManyArgs) {
     return this.serviceImageService.findAll(body);
   }
@@ -43,7 +39,7 @@ export class ServiceImageController {
   @Patch(':id')
   update(
     @Param('id', new ParseUUIDPipe()) id: string,
-    @Body() updateServiceImageDto: UpdateServiceImageDto,
+    @Body() updateServiceImageDto: Prisma.ServiceImagesUpdateArgs,
   ) {
     return this.serviceImageService.update(id, updateServiceImageDto);
   }

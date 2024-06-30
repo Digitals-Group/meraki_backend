@@ -1,6 +1,4 @@
 import { Injectable } from '@nestjs/common';
-import { CreateArticleDto } from './dto/create-article.dto';
-import { UpdateArticleDto } from './dto/update-article.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { Prisma } from '@prisma/client';
 
@@ -8,8 +6,8 @@ import { Prisma } from '@prisma/client';
 export class ArticleService {
   constructor(private readonly prisma: PrismaService) {}
 
-  create(createArticleDto: CreateArticleDto) {
-    return this.prisma.article.create({ data: createArticleDto });
+  create(createArticleDto: Prisma.ArticleCreateArgs) {
+    return this.prisma.article.create(createArticleDto);
   }
 
   async findAll(body: Prisma.ArticleFindManyArgs) {
@@ -23,11 +21,8 @@ export class ArticleService {
     return this.prisma.article.findUnique({ where: { id } });
   }
 
-  update(id: string, updateArticleDto: UpdateArticleDto) {
-    return this.prisma.article.update({
-      where: { id },
-      data: updateArticleDto,
-    });
+  update(id: string, updateArticleDto: Prisma.ArticleUpdateArgs) {
+    return this.prisma.article.update(updateArticleDto);
   }
 
   remove(id: string) {

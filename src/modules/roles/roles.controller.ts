@@ -11,8 +11,7 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { RolesService } from './roles.service';
-import { CreateRoleDto } from './dto/create-role.dto';
-import { UpdateRoleDto } from './dto/update-role.dto';
+
 import {
   ApiBearerAuth,
   ApiCreatedResponse,
@@ -20,7 +19,6 @@ import {
   ApiQuery,
   ApiTags,
 } from '@nestjs/swagger';
-import { RoleEntity } from './entities/role.entity';
 import { JwtAuthGuard } from 'src/common/guards/auth.guard';
 import { Prisma } from '@prisma/client';
 
@@ -32,28 +30,24 @@ export class RolesController {
   constructor(private readonly rolesService: RolesService) {}
 
   @Post()
-  @ApiCreatedResponse({ type: RoleEntity })
-  create(@Body() createRoleDto: CreateRoleDto) {
+  create(@Body() createRoleDto: Prisma.RolesCreateArgs) {
     return this.rolesService.create(createRoleDto);
   }
 
   @Post('/list')
-  @ApiOkResponse({ type: RoleEntity, isArray: true })
   findAll(@Body() body: Prisma.RolesFindManyArgs) {
     return this.rolesService.findAll(body);
   }
 
   @Get(':id')
-  @ApiOkResponse({ type: RoleEntity })
   findOne(@Param('id', new ParseUUIDPipe()) id: string) {
     return this.rolesService.findOne(id);
   }
 
   @Patch(':id')
-  @ApiOkResponse({ type: RoleEntity })
   update(
     @Param('id', new ParseUUIDPipe()) id: string,
-    @Body() updateRoleDto: UpdateRoleDto,
+    @Body() updateRoleDto: Prisma.RolesUpdateArgs,
   ) {
     return this.rolesService.update(id, updateRoleDto);
   }

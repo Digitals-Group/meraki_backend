@@ -11,15 +11,12 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { ProjectResultService } from './project-result.service';
-import { CreateProjectResultDto } from './dto/create-project-result.dto';
-import { UpdateProjectResultDto } from './dto/update-project-result.dto';
 import {
   ApiBearerAuth,
   ApiOkResponse,
   ApiQuery,
   ApiTags,
 } from '@nestjs/swagger';
-import { ProjectResultEntity } from './entities/project-result.entity';
 import { Prisma } from '@prisma/client';
 import { JwtAuthGuard } from 'src/common/guards/auth.guard';
 
@@ -31,12 +28,11 @@ export class ProjectResultController {
   constructor(private readonly projectResultService: ProjectResultService) {}
 
   @Post()
-  create(@Body() createProjectResultDto: CreateProjectResultDto) {
+  create(@Body() createProjectResultDto: Prisma.ProjectResultCreateArgs) {
     return this.projectResultService.create(createProjectResultDto);
   }
 
   @Post('/list')
-  @ApiOkResponse({ type: ProjectResultEntity, isArray: true })
   findAll(@Body() body: Prisma.ProjectResultFindManyArgs) {
     return this.projectResultService.findAll(body);
   }
@@ -49,7 +45,7 @@ export class ProjectResultController {
   @Patch(':id')
   update(
     @Param('id', new ParseUUIDPipe()) id: string,
-    @Body() updateProjectResultDto: UpdateProjectResultDto,
+    @Body() updateProjectResultDto: Prisma.ProjectResultUpdateArgs,
   ) {
     return this.projectResultService.update(id, updateProjectResultDto);
   }

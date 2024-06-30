@@ -1,6 +1,4 @@
 import { Injectable } from '@nestjs/common';
-import { CreateAwardDto } from './dto/create-award.dto';
-import { UpdateAwardDto } from './dto/update-award.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { Prisma } from '@prisma/client';
 
@@ -8,8 +6,8 @@ import { Prisma } from '@prisma/client';
 export class AwardsService {
   constructor(private readonly prisma: PrismaService) {}
 
-  create(createAwardDto: CreateAwardDto) {
-    return this.prisma.awards.create({ data: createAwardDto });
+  create(createAwardDto: Prisma.AwardsCreateArgs) {
+    return this.prisma.awards.create(createAwardDto);
   }
 
   async findAll(body: Prisma.AwardsFindManyArgs) {
@@ -23,8 +21,8 @@ export class AwardsService {
     return this.prisma.awards.findUnique({ where: { id } });
   }
 
-  update(id: string, updateAwardDto: UpdateAwardDto) {
-    return this.prisma.awards.update({ where: { id }, data: updateAwardDto });
+  update(id: string, updateAwardDto: Prisma.AwardsUpdateArgs) {
+    return this.prisma.awards.update(updateAwardDto);
   }
 
   remove(id: string) {
