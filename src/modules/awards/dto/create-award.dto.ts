@@ -4,11 +4,23 @@ import { IsString, isString } from 'class-validator';
 export class CreateAwardDto {
   @ApiProperty()
   @IsString()
-  title: string;
+  title_uz: string;
+  @ApiProperty()
+  @IsString()
+  title_ru: string;
+  @ApiProperty()
+  @IsString()
+  title_en: string;
 
   @ApiProperty()
   @IsString()
-  description: string;
+  description_uz: string;
+  @ApiProperty()
+  @IsString()
+  description_ru: string;
+  @ApiProperty()
+  @IsString()
+  description_en: string;
 
   @ApiProperty()
   @IsString()

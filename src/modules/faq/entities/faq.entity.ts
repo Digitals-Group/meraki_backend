@@ -5,9 +5,17 @@ export class FaqEntity implements Faq {
   @ApiProperty()
   id: string;
   @ApiProperty()
-  question: string;
+  question_uz: string;
   @ApiProperty()
-  answer: string;
+  question_ru: string;
+  @ApiProperty()
+  question_en: string;
+  @ApiProperty()
+  answer_uz: string;
+  @ApiProperty()
+  answer_ru: string;
+  @ApiProperty()
+  answer_en: string;
   @ApiProperty()
   createdAt: Date;
   @ApiProperty()

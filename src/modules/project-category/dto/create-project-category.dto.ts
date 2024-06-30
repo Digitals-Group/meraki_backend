@@ -5,5 +5,13 @@ export class CreateProjectCategoryDto {
   @ApiProperty()
   @IsString()
   @IsNotEmpty()
-  title: string;
+  title_uz: string;
+  @ApiProperty()
+  @IsString()
+  @IsNotEmpty()
+  title_ru: string;
+  @ApiProperty()
+  @IsString()
+  @IsNotEmpty()
+  title_en: string;
 }

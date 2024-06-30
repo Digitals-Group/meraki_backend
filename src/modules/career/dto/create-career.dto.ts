@@ -4,9 +4,23 @@ import { IsString } from 'class-validator';
 export class CreateCareerDto {
   @ApiProperty()
   @IsString()
-  name: string;
+  name_uz: string;
+  @ApiProperty()
+  @IsString()
+  name_ru: string;
+  @ApiProperty()
+  @IsString()
+  name_en: string;
 
   @ApiProperty()
   @IsString()
-  description: string;
+  description_uz: string;
+
+  @ApiProperty()
+  @IsString()
+  description_ru: string;
+
+  @ApiProperty()
+  @IsString()
+  description_en: string;
 }

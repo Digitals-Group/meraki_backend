@@ -12,7 +12,13 @@ export class CreateReviewDto {
 
   @ApiProperty()
   @IsString()
-  name: string;
+  name_uz: string;
+  @ApiProperty()
+  @IsString()
+  name_ru: string;
+  @ApiProperty()
+  @IsString()
+  name_en: string;
 
   @ApiProperty()
   @IsString()

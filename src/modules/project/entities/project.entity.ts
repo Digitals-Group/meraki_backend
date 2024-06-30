@@ -5,16 +5,28 @@ export class ProjectEntity {
   id: string;
 
   @ApiProperty()
-  title: string;
+  title_uz: string;
+  @ApiProperty()
+  title_ru: string;
+  @ApiProperty()
+  title_en: string;
 
   @ApiProperty()
   image: string;
 
   @ApiProperty()
-  description: string;
+  description_uz: string;
+  @ApiProperty()
+  description_ru: string;
+  @ApiProperty()
+  description_en: string;
 
   @ApiProperty()
-  resultDescription: string;
+  resultDescription_uz: string;
+  @ApiProperty()
+  resultDescription_ru: string;
+  @ApiProperty()
+  resultDescription_en: string;
 
   @ApiProperty()
   projectCategoryId: string;

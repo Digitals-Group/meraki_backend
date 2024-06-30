@@ -5,10 +5,18 @@ export class ProjectSolutionEntity {
   id: string;
 
   @ApiProperty()
-  title: string;
+  title_uz: string;
+  @ApiProperty()
+  title_ru: string;
+  @ApiProperty()
+  title_en: string;
 
   @ApiProperty()
-  description: string;
+  description_uz: string;
+  @ApiProperty()
+  description_ru: string;
+  @ApiProperty()
+  description_en: string;
 
   @ApiProperty()
   projectId: string;

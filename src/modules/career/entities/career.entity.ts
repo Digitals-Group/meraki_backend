@@ -5,9 +5,17 @@ export class CareerEntity implements Career {
   @ApiProperty()
   id: string;
   @ApiProperty()
-  name: string;
+  name_uz: string;
   @ApiProperty()
-  description: string;
+  name_ru: string;
+  @ApiProperty()
+  name_en: string;
+  @ApiProperty()
+  description_uz: string;
+  @ApiProperty()
+  description_ru: string;
+  @ApiProperty()
+  description_en: string;
   @ApiProperty()
   createdAt: Date;
   @ApiProperty()

@@ -9,7 +9,11 @@ export class ReviewEntity implements Review {
   @ApiProperty()
   image: string;
   @ApiProperty()
-  name: string;
+  name_uz: string;
+  @ApiProperty()
+  name_ru: string;
+  @ApiProperty()
+  name_en: string;
   @ApiProperty()
   company_name: string;
   @ApiProperty()

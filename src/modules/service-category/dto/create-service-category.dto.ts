@@ -4,7 +4,11 @@ import { IsString } from 'class-validator';
 export class CreateServiceCategoryDto {
   @ApiProperty()
   @IsString()
-  title: string;
+  title_uz: string;
+  @IsString()
+  title_ru: string;
+  @IsString()
+  title_en: string;
   @ApiProperty()
   @IsString()
   image: string;

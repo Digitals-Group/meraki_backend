@@ -116,7 +116,7 @@ model Faq {
   id             String  @id@default(uuid())
   question_uz    String 
   question_ru    String 
-  question_rn    String 
+  question_en    String 
   answer_uz      String
   answer_ru      String
   answer_en      String

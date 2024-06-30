@@ -5,12 +5,28 @@ export class CreateProjectSolutionDto {
   @ApiProperty()
   @IsString()
   @IsNotEmpty()
-  title: string;
+  title_uz: string;
+  @ApiProperty()
+  @IsString()
+  @IsNotEmpty()
+  title_ru: string;
+  @ApiProperty()
+  @IsString()
+  @IsNotEmpty()
+  title_en: string;
 
   @ApiProperty()
   @IsString()
   @IsNotEmpty()
-  description: string;
+  description_uz: string;
+  @ApiProperty()
+  @IsString()
+  @IsNotEmpty()
+  description_ru: string;
+  @ApiProperty()
+  @IsString()
+  @IsNotEmpty()
+  description_en: string;
 
   @ApiProperty()
   @IsString()
