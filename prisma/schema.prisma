@@ -51,12 +51,16 @@ model User {
 
 
 model Blog{
-  id             String      @id@default(uuid())
-  image          String 
-  title          String     @unique
-  description    String 
-  createdAt      DateTime   @default(now())
-  updatedAt      DateTime   @updatedAt
+  id                String      @id@default(uuid())
+  image             String 
+  title_uz          String     @unique
+  title_ru          String     @unique
+  title_en          String     @unique
+  description_uz    String 
+  description_ru    String 
+  description_en    String 
+  createdAt         DateTime   @default(now())
+  updatedAt         DateTime   @updatedAt
 }
 
 model Partners {
@@ -68,8 +72,12 @@ model Partners {
 
 model Awards {
   id             String          @id@default(uuid())
-  title          String          @unique
-  description    String
+  title_uz       String          @unique
+  title_ru       String          @unique
+  title_en       String        @unique
+  description_uz String
+  description_ru String
+  description_en String
   image          String
   createdAt      DateTime      @default(now())
   updatedAt      DateTime      @updatedAt
@@ -79,7 +87,9 @@ model Review {
   id             String          @id@default(uuid())
   video          String
   image          String
-  name           String          
+  name_uz        String          
+  name_ru        String          
+  name_en        String          
   company_name   String
   position       String
   review_text    String
@@ -104,16 +114,24 @@ model Contact {
 
 model Faq {
   id             String  @id@default(uuid())
-  question       String 
-  answer         String
-  createdAt      DateTime      @default(now())
-  updatedAt      DateTime      @updatedAt
+  question_uz    String 
+  question_ru    String 
+  question_rn    String 
+  answer_uz      String
+  answer_ru      String
+  answer_en      String
+  createdAt      DateTime          @default(now())
+  updatedAt      DateTime          @updatedAt
 }
 
 model Career {
-  id             String        @id@default(uuid())
-  name           String 
-  description    String
+  id                String        @id@default(uuid())
+  name_uz           String 
+  name_ru           String 
+  name_en           String 
+  description_uz    String
+  description_ru    String
+  description_en    String
   careers        CareerApply[]
   createdAt      DateTime      @default(now())
   updatedAt      DateTime      @updatedAt
@@ -138,8 +156,12 @@ model CareerApply {
 
 model Article {
   id              String          @id@default(uuid())
-  title           String          @unique
-  description     String  
+  title_uz        String          @unique
+  title_ru        String          @unique
+  title_en        String          @unique
+  description_uz  String  
+  description_ru  String  
+  description_en  String  
   content         String      
   createdAt         DateTime   @default(now())
   updatedAt         DateTime   @updatedAt      
@@ -149,15 +171,22 @@ model Article {
 ///Project
 model ProjectCategory {
   id        String       @id @default(uuid())
-  title     String
+  title_uz  String
+  title_ru  String
+  title_en  String
   projects  Project[]
   createdAt         DateTime   @default(now())
   updatedAt         DateTime   @updatedAt
 }
+
 model ProjectSolution {
   id        String       @id @default(uuid())
-  title     String
-  description String
+  title_uz     String
+  title_ru     String
+  title_en     String
+  description_uz String
+  description_ru String
+  description_eng String
   projectId String
   project   Project   @relation(fields: [projectId], references: [id])
   createdAt         DateTime   @default(now())
@@ -174,15 +203,21 @@ model ProjectResult {
 }
 
 model Project {
-  id                  String       @id @default(uuid())
-  title               String
-  image               String
-  description         String
-  resultDescription   String
-  projectCategoryId   String
-  projectCategory     ProjectCategory   @relation(fields: [projectCategoryId], references: [id])
-  projectSolutions    ProjectSolution[]
-  projectResults      ProjectResult[]
+  id                     String       @id @default(uuid())
+  title_uz               String
+  title_ru               String
+  title_en               String
+  image                  String
+  description_uz         String
+  description_ru         String
+  description_en         String
+  resultDescription_uz   String
+  resultDescription_ru   String
+  resultDescription_en   String
+  projectCategoryId      String
+  projectCategory        ProjectCategory   @relation(fields: [projectCategoryId], references: [id])
+  projectSolutions       ProjectSolution[]
+  projectResults         ProjectResult[]
   createdAt         DateTime   @default(now())
   updatedAt         DateTime   @updatedAt
 }
@@ -190,10 +225,12 @@ model Project {
 
 /// Service
 model ServiceCategory {
-  id        String       @id @default(uuid())
-  title     String
-  image     String
-  services Service[]
+  id                String       @id @default(uuid())
+  title_uz          String
+  title_ru          String
+  title_en          String
+  image             String
+  services          Service[]
   createdAt         DateTime   @default(now())
   updatedAt         DateTime   @updatedAt
 }
@@ -208,10 +245,14 @@ model ServiceImages {
 }
 
 model ServiceStep {
-  id           String       @id @default(uuid())
-  title        String
-  description  String
-  serviceId    String
+  id                String       @id @default(uuid())
+  title_uz          String
+  title_ru          String
+  title_en          String
+  description_uz    String
+  description_ru    String
+  description_en    String
+  serviceId         String
   service   Service @relation(fields: [serviceId], references: [id])
   createdAt         DateTime   @default(now())
   updatedAt         DateTime   @updatedAt
@@ -219,7 +260,9 @@ model ServiceStep {
 
 model Service {
   id                String       @id @default(uuid())
-  title             String
+  title_uz             String
+  title_ru             String
+  title_en             String
   video             String
   serviceCategoryId String
   contactId         String
