@@ -1,26 +1,35 @@
 import { Injectable } from '@nestjs/common';
 import { CreateServiceImageDto } from './dto/create-service-image.dto';
 import { UpdateServiceImageDto } from './dto/update-service-image.dto';
+import { PrismaService } from 'src/prisma/prisma.service';
+import { Prisma } from '@prisma/client';
 
 @Injectable()
 export class ServiceImageService {
+  constructor(private readonly prisma: PrismaService) {}
   create(createServiceImageDto: CreateServiceImageDto) {
-    return 'This action adds a new serviceImage';
+    return this.prisma.serviceImages.create({ data: createServiceImageDto });
   }
 
-  findAll() {
-    return `This action returns all serviceImage`;
+  async findAll(body: Prisma.ServiceImagesFindFirstArgs) {
+    return {
+      data: await this.prisma.serviceImages.findMany(body),
+      count: await this.prisma.serviceImages.count(),
+    };
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} serviceImage`;
+  findOne(id: string) {
+    return this.prisma.serviceImages.findUnique({ where: { id } });
   }
 
-  update(id: number, updateServiceImageDto: UpdateServiceImageDto) {
-    return `This action updates a #${id} serviceImage`;
+  update(id: string, updateServiceImageDto: UpdateServiceImageDto) {
+    return this.prisma.serviceImages.update({
+      where: { id },
+      data: updateServiceImageDto,
+    });
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} serviceImage`;
+  remove(id: string) {
+    return this.prisma.serviceImages.delete({ where: { id } });
   }
 }

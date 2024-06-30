@@ -15,12 +15,7 @@ import { CreateArticleDto } from './dto/create-article.dto';
 import { UpdateArticleDto } from './dto/update-article.dto';
 import { Prisma } from '@prisma/client';
 import { ArticleEntity } from './entities/article.entity';
-import {
-  ApiBearerAuth,
-  ApiOkResponse,
-  ApiQuery,
-  ApiTags,
-} from '@nestjs/swagger';
+import { ApiBearerAuth, ApiOkResponse, ApiTags } from '@nestjs/swagger';
 import { JwtAuthGuard } from 'src/common/guards/auth.guard';
 
 @Controller('article')

@@ -1,26 +1,38 @@
 import { Injectable } from '@nestjs/common';
 import { CreateServiceCategoryDto } from './dto/create-service-category.dto';
 import { UpdateServiceCategoryDto } from './dto/update-service-category.dto';
+import { PrismaService } from 'src/prisma/prisma.service';
+import { Prisma, PrismaClient } from '@prisma/client';
+import { count } from 'console';
 
 @Injectable()
 export class ServiceCategoryService {
+  constructor(private readonly prisma: PrismaService) {}
   create(createServiceCategoryDto: CreateServiceCategoryDto) {
-    return 'This action adds a new serviceCategory';
+    return this.prisma.serviceCategory.create({
+      data: createServiceCategoryDto,
+    });
   }
 
-  findAll() {
-    return `This action returns all serviceCategory`;
+  async findAll(body: Prisma.ServiceCategoryFindManyArgs) {
+    return {
+      data: await this.prisma.serviceCategory.findMany(body),
+      count: await this.prisma.serviceCategory.count(),
+    };
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} serviceCategory`;
+  findOne(id: string) {
+    return this.prisma.serviceCategory.findUnique({ where: { id } });
   }
 
-  update(id: number, updateServiceCategoryDto: UpdateServiceCategoryDto) {
-    return `This action updates a #${id} serviceCategory`;
+  update(id: string, updateServiceCategoryDto: UpdateServiceCategoryDto) {
+    return this.prisma.serviceCategory.update({
+      where: { id },
+      data: updateServiceCategoryDto,
+    });
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} serviceCategory`;
+  remove(id: string) {
+    return this.prisma.serviceCategory.delete({ where: { id } });
   }
 }

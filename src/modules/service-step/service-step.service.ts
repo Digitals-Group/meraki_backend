@@ -1,26 +1,36 @@
 import { Injectable } from '@nestjs/common';
 import { CreateServiceStepDto } from './dto/create-service-step.dto';
 import { UpdateServiceStepDto } from './dto/update-service-step.dto';
+import { PrismaService } from 'src/prisma/prisma.service';
+import { Prisma } from '@prisma/client';
+import { count } from 'console';
 
 @Injectable()
 export class ServiceStepService {
+  constructor(private readonly prisma: PrismaService) {}
   create(createServiceStepDto: CreateServiceStepDto) {
-    return 'This action adds a new serviceStep';
+    return this.prisma.serviceStep.create({ data: createServiceStepDto });
   }
 
-  findAll() {
-    return `This action returns all serviceStep`;
+  async findAll(body: Prisma.ServiceStepFindManyArgs) {
+    return {
+      data: await this.prisma.serviceStep.findMany(body),
+      count: await this.prisma.serviceStep.count(),
+    };
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} serviceStep`;
+  findOne(id: string) {
+    return this.prisma.serviceStep.findUnique({ where: { id } });
   }
 
-  update(id: number, updateServiceStepDto: UpdateServiceStepDto) {
-    return `This action updates a #${id} serviceStep`;
+  update(id: string, updateServiceStepDto: UpdateServiceStepDto) {
+    return this.prisma.serviceStep.update({
+      where: { id },
+      data: updateServiceStepDto,
+    });
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} serviceStep`;
+  remove(id: string) {
+    return this.prisma.serviceStep.delete({ where: { id } });
   }
 }
