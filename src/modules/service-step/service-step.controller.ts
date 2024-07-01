@@ -13,6 +13,7 @@ import { ServiceStepService } from './service-step.service';
 import { JwtAuthGuard } from 'src/common/guards/auth.guard';
 import { ApiBearerAuth, ApiOkResponse, ApiTags } from '@nestjs/swagger';
 import { Prisma } from '@prisma/client';
+import { PrismaService } from 'src/prisma/prisma.service';
 
 @Controller('service-step')
 @ApiBearerAuth()
@@ -31,17 +32,14 @@ export class ServiceStepController {
     return this.serviceStepService.findAll(body);
   }
 
-  @Get(':id')
-  findOne(@Param('id', new ParseUUIDPipe()) id: string) {
-    return this.serviceStepService.findOne(id);
+  @Post('/read')
+  findOne(@Body() body: Prisma.ServiceStepFindUniqueArgs) {
+    return this.serviceStepService.findOne(body);
   }
 
-  @Patch(':id')
-  update(
-    @Param('id', new ParseUUIDPipe()) id: string,
-    @Body() updateServiceStepDto: Prisma.ServiceStepUpdateArgs,
-  ) {
-    return this.serviceStepService.update(id, updateServiceStepDto);
+  @Patch('/update')
+  update(@Body() updateServiceStepDto: Prisma.ServiceStepUpdateArgs) {
+    return this.serviceStepService.update(updateServiceStepDto);
   }
 
   @Delete(':id')

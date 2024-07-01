@@ -17,14 +17,11 @@ export class ProjectSolutionService {
     };
   }
 
-  findOne(id: string) {
-    return this.prisma.projectSolution.findUnique({ where: { id } });
+  findOne(body: Prisma.ProjectSolutionFindUniqueArgs) {
+    return this.prisma.projectSolution.findUnique(body);
   }
 
-  update(
-    id: string,
-    updateProjectSolutionDto: Prisma.ProjectSolutionUpdateArgs,
-  ) {
+  update(updateProjectSolutionDto: Prisma.ProjectSolutionUpdateArgs) {
     return this.prisma.projectSolution.update(updateProjectSolutionDto);
   }
 

@@ -16,11 +16,11 @@ export class ReviewService {
       count: await this.prisma.review.count(),
     };
   }
-  findOne(id: string) {
-    return this.prisma.review.findUnique({ where: { id } });
+  findOne(body: Prisma.ReviewFindUniqueArgs) {
+    return this.prisma.review.findUnique(body);
   }
 
-  update(id: string, updateReviewDto: Prisma.ReviewUpdateArgs) {
+  update(updateReviewDto: Prisma.ReviewUpdateArgs) {
     return this.prisma.review.update(updateReviewDto);
   }
 

@@ -18,11 +18,11 @@ export class BlogService {
     };
   }
 
-  findOne(id: string) {
-    return this.prisma.blog.findUnique({ where: { id } });
+  findOne(body: Prisma.BlogFindUniqueArgs) {
+    return this.prisma.blog.findUnique(body);
   }
 
-  update(id: string, updateBlogDto: Prisma.BlogUpdateArgs) {
+  update(updateBlogDto: Prisma.BlogUpdateArgs) {
     return this.prisma.blog.update(updateBlogDto);
   }
   remove(id: string) {

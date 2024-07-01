@@ -33,17 +33,14 @@ export class ServiceCategoryController {
     return this.serviceCategoryService.findAll(body);
   }
 
-  @Get(':id')
-  findOne(@Param('id', new ParseUUIDPipe()) id: string) {
-    return this.serviceCategoryService.findOne(id);
+  @Post('/read')
+  findOne(@Body() body: Prisma.ServiceCategoryFindUniqueArgs) {
+    return this.serviceCategoryService.findOne(body);
   }
 
-  @Patch(':id')
-  update(
-    @Param('id', new ParseUUIDPipe()) id: string,
-    @Body() updateServiceCategoryDto: Prisma.ServiceCategoryUpdateArgs,
-  ) {
-    return this.serviceCategoryService.update(id, updateServiceCategoryDto);
+  @Patch('/update')
+  update(@Body() updateServiceCategoryDto: Prisma.ServiceCategoryUpdateArgs) {
+    return this.serviceCategoryService.update(updateServiceCategoryDto);
   }
 
   @Delete(':id')

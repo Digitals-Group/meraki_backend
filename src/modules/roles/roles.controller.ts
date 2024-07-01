@@ -39,17 +39,14 @@ export class RolesController {
     return this.rolesService.findAll(body);
   }
 
-  @Get(':id')
-  findOne(@Param('id', new ParseUUIDPipe()) id: string) {
-    return this.rolesService.findOne(id);
+  @Post('/read')
+  findOne(@Body() body: Prisma.RolesFindUniqueArgs) {
+    return this.rolesService.findOne(body);
   }
 
-  @Patch(':id')
-  update(
-    @Param('id', new ParseUUIDPipe()) id: string,
-    @Body() updateRoleDto: Prisma.RolesUpdateArgs,
-  ) {
-    return this.rolesService.update(id, updateRoleDto);
+  @Patch('/update')
+  update(@Body() updateRoleDto: Prisma.RolesUpdateArgs) {
+    return this.rolesService.update(updateRoleDto);
   }
 
   @Delete(':id')

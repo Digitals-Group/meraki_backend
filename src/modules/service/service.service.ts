@@ -18,11 +18,11 @@ export class ServiceService {
     };
   }
 
-  findOne(id: string) {
-    return this.prisma.service.findUnique({ where: { id } });
+  findOne(body: Prisma.ServiceFindUniqueArgs) {
+    return this.prisma.service.findUnique(body);
   }
 
-  update(id: string, updateServiceDto: Prisma.ServiceUpdateArgs) {
+  update(updateServiceDto: Prisma.ServiceUpdateArgs) {
     return this.prisma.service.update(updateServiceDto);
   }
 

@@ -18,11 +18,11 @@ export class RolesService {
     };
   }
 
-  findOne(id: string) {
-    return this.prisma.roles.findUnique({ where: { id } });
+  findOne(body: Prisma.RolesFindUniqueArgs) {
+    return this.prisma.roles.findUnique(body);
   }
 
-  update(id: string, updateRoleDto: Prisma.RolesUpdateArgs) {
+  update(updateRoleDto: Prisma.RolesUpdateArgs) {
     return this.prisma.roles.update(updateRoleDto);
   }
 

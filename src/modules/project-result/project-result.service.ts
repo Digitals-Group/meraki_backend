@@ -18,11 +18,11 @@ export class ProjectResultService {
     };
   }
 
-  findOne(id: string) {
-    return this.prisma.projectResult.findUnique({ where: { id } });
+  findOne(body: Prisma.ProjectResultFindUniqueArgs) {
+    return this.prisma.projectResult.findUnique(body);
   }
 
-  update(id: string, updateProjectResultDto: Prisma.ProjectResultUpdateArgs) {
+  update(updateProjectResultDto: Prisma.ProjectResultUpdateArgs) {
     return this.prisma.projectResult.update(updateProjectResultDto);
   }
 

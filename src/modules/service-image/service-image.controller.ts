@@ -31,17 +31,14 @@ export class ServiceImageController {
     return this.serviceImageService.findAll(body);
   }
 
-  @Get(':id')
-  findOne(@Param('id', new ParseUUIDPipe()) id: string) {
-    return this.serviceImageService.findOne(id);
+  @Post('/read')
+  findOne(@Body() body: Prisma.ServiceImagesFindUniqueArgs) {
+    return this.serviceImageService.findOne(body);
   }
 
-  @Patch(':id')
-  update(
-    @Param('id', new ParseUUIDPipe()) id: string,
-    @Body() updateServiceImageDto: Prisma.ServiceImagesUpdateArgs,
-  ) {
-    return this.serviceImageService.update(id, updateServiceImageDto);
+  @Patch('/update')
+  update(@Body() updateServiceImageDto: Prisma.ServiceImagesUpdateArgs) {
+    return this.serviceImageService.update(updateServiceImageDto);
   }
 
   @Delete(':id')

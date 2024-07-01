@@ -37,17 +37,14 @@ export class PartnersController {
     return this.partnersService.findAll(body);
   }
 
-  @Get(':id')
-  findOne(@Param('id', new ParseUUIDPipe()) id: string) {
-    return this.partnersService.findOne(id);
+  @Post('/read')
+  findOne(@Body() body: Prisma.PartnersFindUniqueArgs) {
+    return this.partnersService.findOne(body);
   }
 
-  @Patch(':id')
-  update(
-    @Param('id', new ParseUUIDPipe()) id: string,
-    @Body() updatePartnerDto: Prisma.PartnersUpdateArgs,
-  ) {
-    return this.partnersService.update(id, updatePartnerDto);
+  @Patch('/update')
+  update(@Body() updatePartnerDto: Prisma.PartnersUpdateArgs) {
+    return this.partnersService.update(updatePartnerDto);
   }
 
   @Delete(':id')

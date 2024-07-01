@@ -22,14 +22,11 @@ export class UsersService {
     };
   }
 
-  findOne(id: string) {
-    return this.prisma.user.findUnique({
-      where: { id },
-      include: { roles: true },
-    });
+  findOne(args: Prisma.UserFindUniqueArgs) {
+    return this.prisma.user.findUnique(args);
   }
 
-  async update(id: string, updateUserDto: Prisma.UserUpdateArgs) {
+  async update(updateUserDto: Prisma.UserUpdateArgs) {
     if (updateUserDto.data.password) {
       updateUserDto.data.password = await bcrypt.hash(
         updateUserDto.data.password,

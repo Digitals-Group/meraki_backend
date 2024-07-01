@@ -17,11 +17,11 @@ export class CareerService {
     };
   }
 
-  findOne(id: string) {
-    return this.prisma.career.findUnique({ where: { id } });
+  findOne(body: Prisma.CareerFindUniqueArgs) {
+    return this.prisma.career.findUnique(body);
   }
 
-  update(id: string, updateCareerDto: Prisma.CareerUpdateArgs) {
+  update(updateCareerDto: Prisma.CareerUpdateArgs) {
     return this.prisma.career.update(updateCareerDto);
   }
 

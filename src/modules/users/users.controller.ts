@@ -32,17 +32,14 @@ export class UsersController {
     return this.usersService.findAll(body);
   }
 
-  @Get(':id')
-  findOne(@Param('id', new ParseUUIDPipe()) id: string) {
-    return this.usersService.findOne(id);
+  @Post('/read')
+  findOne(@Body() body: Prisma.UserFindUniqueArgs) {
+    return this.usersService.findOne(body);
   }
 
-  @Patch(':id')
-  update(
-    @Param('id', new ParseUUIDPipe()) id: string,
-    @Body() updateUserDto: Prisma.UserUpdateArgs,
-  ) {
-    return this.usersService.update(id, updateUserDto);
+  @Patch('/update')
+  update(@Body() updateUserDto: Prisma.UserUpdateArgs) {
+    return this.usersService.update(updateUserDto);
   }
 
   @Delete(':id')

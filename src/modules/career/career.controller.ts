@@ -38,17 +38,14 @@ export class CareerController {
     return this.careerService.findAll(body);
   }
 
-  @Get(':id')
-  findOne(@Param('id', new ParseUUIDPipe()) id: string) {
-    return this.careerService.findOne(id);
+  @Post('/read')
+  findOne(@Body() body: Prisma.CareerFindUniqueArgs) {
+    return this.careerService.findOne(body);
   }
 
-  @Patch(':id')
-  update(
-    @Param('id', new ParseUUIDPipe()) id: string,
-    @Body() updateCareerDto: Prisma.CareerUpdateArgs,
-  ) {
-    return this.careerService.update(id, updateCareerDto);
+  @Patch('/update')
+  update(@Body() updateCareerDto: Prisma.CareerUpdateArgs) {
+    return this.careerService.update(updateCareerDto);
   }
 
   @Delete(':id')

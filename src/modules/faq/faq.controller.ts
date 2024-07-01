@@ -38,17 +38,14 @@ export class FaqController {
     return this.faqService.findAll(body);
   }
 
-  @Get(':id')
-  findOne(@Param('id', new ParseUUIDPipe()) id: string) {
-    return this.faqService.findOne(id);
+  @Post('/read')
+  findOne(@Body() body: Prisma.FaqFindUniqueArgs) {
+    return this.faqService.findOne(body);
   }
 
-  @Patch(':id')
-  update(
-    @Param('id', new ParseUUIDPipe()) id: string,
-    @Body() updateFaqDto: Prisma.FaqUpdateArgs,
-  ) {
-    return this.faqService.update(id, updateFaqDto);
+  @Patch('/update')
+  update(@Body() updateFaqDto: Prisma.FaqUpdateArgs) {
+    return this.faqService.update(updateFaqDto);
   }
 
   @Delete(':id')

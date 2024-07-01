@@ -17,11 +17,11 @@ export class ServiceStepService {
     };
   }
 
-  findOne(id: string) {
-    return this.prisma.serviceStep.findUnique({ where: { id } });
+  findOne(body: Prisma.ServiceStepFindUniqueArgs) {
+    return this.prisma.serviceStep.findUnique(body);
   }
 
-  update(id: string, updateServiceStepDto: Prisma.ServiceStepUpdateArgs) {
+  update(updateServiceStepDto: Prisma.ServiceStepUpdateArgs) {
     return this.prisma.serviceStep.update(updateServiceStepDto);
   }
 

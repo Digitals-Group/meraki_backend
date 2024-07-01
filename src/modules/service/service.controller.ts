@@ -31,17 +31,14 @@ export class ServiceController {
     return this.serviceService.findAll(body);
   }
 
-  @Get(':id')
-  findOne(@Param('id', new ParseUUIDPipe()) id: string) {
-    return this.serviceService.findOne(id);
+  @Post('/read')
+  findOne(@Body() body: Prisma.ServiceFindUniqueArgs) {
+    return this.serviceService.findOne(body);
   }
 
-  @Patch(':id')
-  update(
-    @Param('id', new ParseUUIDPipe()) id: string,
-    @Body() updateServiceDto: Prisma.ServiceUpdateArgs,
-  ) {
-    return this.serviceService.update(id, updateServiceDto);
+  @Patch('/update')
+  update(@Body() updateServiceDto: Prisma.ServiceUpdateArgs) {
+    return this.serviceService.update(updateServiceDto);
   }
 
   @Delete(':id')

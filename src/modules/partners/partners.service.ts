@@ -16,11 +16,11 @@ export class PartnersService {
     };
   }
 
-  findOne(id: string) {
-    return this.prisma.partners.findUnique({ where: { id } });
+  findOne(body: Prisma.PartnersFindUniqueArgs) {
+    return this.prisma.partners.findUnique(body);
   }
 
-  update(id: string, updatePartnerDto: Prisma.PartnersUpdateArgs) {
+  update(updatePartnerDto: Prisma.PartnersUpdateArgs) {
     return this.prisma.partners.update(updatePartnerDto);
   }
 

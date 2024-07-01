@@ -18,11 +18,11 @@ export class ContactService {
     };
   }
 
-  findOne(id: string) {
-    return this.prisma.contact.findUnique({ where: { id } });
+  findOne(body: Prisma.ContactFindUniqueArgs) {
+    return this.prisma.contact.findUnique(body);
   }
 
-  update(id: string, updateContactDto: Prisma.ContactUpdateArgs) {
+  update(updateContactDto: Prisma.ContactUpdateArgs) {
     return this.prisma.contact.update(updateContactDto);
   }
 

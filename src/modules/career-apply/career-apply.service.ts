@@ -18,11 +18,11 @@ export class CareerApplyService {
     };
   }
 
-  findOne(id: string) {
-    return this.prisma.careerApply.findUnique({ where: { id } });
+  findOne(body: Prisma.CareerApplyFindUniqueArgs) {
+    return this.prisma.careerApply.findUnique(body);
   }
 
-  update(id: string, updateCareerApplyDto: Prisma.CareerApplyUpdateArgs) {
+  update(updateCareerApplyDto: Prisma.CareerApplyUpdateArgs) {
     return this.prisma.careerApply.update(updateCareerApplyDto);
   }
 

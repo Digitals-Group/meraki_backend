@@ -37,17 +37,14 @@ export class ProjectResultController {
     return this.projectResultService.findAll(body);
   }
 
-  @Get(':id')
-  findOne(@Param('id', new ParseUUIDPipe()) id: string) {
-    return this.projectResultService.findOne(id);
+  @Post('/read')
+  findOne(@Body() body: Prisma.ProjectResultFindUniqueArgs) {
+    return this.projectResultService.findOne(body);
   }
 
-  @Patch(':id')
-  update(
-    @Param('id', new ParseUUIDPipe()) id: string,
-    @Body() updateProjectResultDto: Prisma.ProjectResultUpdateArgs,
-  ) {
-    return this.projectResultService.update(id, updateProjectResultDto);
+  @Patch('/update')
+  update(@Body() updateProjectResultDto: Prisma.ProjectResultUpdateArgs) {
+    return this.projectResultService.update(updateProjectResultDto);
   }
 
   @Delete(':id')

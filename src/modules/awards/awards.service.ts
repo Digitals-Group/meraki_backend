@@ -17,11 +17,11 @@ export class AwardsService {
     };
   }
 
-  findOne(id: string) {
-    return this.prisma.awards.findUnique({ where: { id } });
+  findOne(body: Prisma.AwardsFindUniqueArgs) {
+    return this.prisma.awards.findUnique(body);
   }
 
-  update(id: string, updateAwardDto: Prisma.AwardsUpdateArgs) {
+  update(updateAwardDto: Prisma.AwardsUpdateArgs) {
     return this.prisma.awards.update(updateAwardDto);
   }
 

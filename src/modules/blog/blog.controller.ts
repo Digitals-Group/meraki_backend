@@ -38,17 +38,14 @@ export class BlogController {
     return this.blogService.findAll(body);
   }
 
-  @Get(':id')
-  findOne(@Param('id', new ParseUUIDPipe()) id: string) {
-    return this.blogService.findOne(id);
+  @Post('/read')
+  findOne(@Body() body: Prisma.BlogFindUniqueArgs) {
+    return this.blogService.findOne(body);
   }
 
-  @Patch(':id')
-  update(
-    @Param('id', new ParseUUIDPipe()) id: string,
-    @Body() updateBlogDto: Prisma.BlogUpdateArgs,
-  ) {
-    return this.blogService.update(id, updateBlogDto);
+  @Patch('/update')
+  update(@Body() updateBlogDto: Prisma.BlogUpdateArgs) {
+    return this.blogService.update(updateBlogDto);
   }
 
   @Delete(':id')

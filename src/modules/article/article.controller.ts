@@ -32,17 +32,14 @@ export class ArticleController {
     return this.articleService.findAll(body);
   }
 
-  @Get(':id')
-  findOne(@Param('id', new ParseUUIDPipe()) id: string) {
-    return this.articleService.findOne(id);
+  @Post('/read')
+  findOne(@Body() body: Prisma.ArticleFindUniqueArgs) {
+    return this.articleService.findOne(body);
   }
 
-  @Patch(':id')
-  update(
-    @Param('id', new ParseUUIDPipe()) id: string,
-    @Body() updateArticleDto: Prisma.ArticleUpdateArgs,
-  ) {
-    return this.articleService.update(id, updateArticleDto);
+  @Patch('/update')
+  update(@Body() updateArticleDto: Prisma.ArticleUpdateArgs) {
+    return this.articleService.update(updateArticleDto);
   }
 
   @Delete(':id')

@@ -16,11 +16,11 @@ export class ServiceImageService {
     };
   }
 
-  findOne(id: string) {
-    return this.prisma.serviceImages.findUnique({ where: { id } });
+  findOne(body: Prisma.ServiceImagesFindUniqueArgs) {
+    return this.prisma.serviceImages.findUnique(body);
   }
 
-  update(id: string, updateServiceImageDto: Prisma.ServiceImagesUpdateArgs) {
+  update(updateServiceImageDto: Prisma.ServiceImagesUpdateArgs) {
     return this.prisma.serviceImages.update(updateServiceImageDto);
   }
 

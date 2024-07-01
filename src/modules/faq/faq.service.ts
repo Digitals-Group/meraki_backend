@@ -16,11 +16,11 @@ export class FaqService {
     };
   }
 
-  findOne(id: string) {
-    return this.prisma.faq.findUnique({ where: { id } });
+  findOne(body: Prisma.FaqFindUniqueArgs) {
+    return this.prisma.faq.findUnique(body);
   }
 
-  update(id: string, updateFaqDto: Prisma.FaqUpdateArgs) {
+  update(updateFaqDto: Prisma.FaqUpdateArgs) {
     return this.prisma.faq.update(updateFaqDto);
   }
 

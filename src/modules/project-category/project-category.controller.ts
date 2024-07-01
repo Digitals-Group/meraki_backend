@@ -39,17 +39,14 @@ export class ProjectCategoryController {
     return this.projectCategoryService.findAll(body);
   }
 
-  @Get(':id')
-  findOne(@Param('id', new ParseUUIDPipe()) id: string) {
-    return this.projectCategoryService.findOne(id);
+  @Post('/read')
+  findOne(@Body() body: Prisma.ProjectCategoryFindUniqueArgs) {
+    return this.projectCategoryService.findOne(body);
   }
 
-  @Patch(':id')
-  update(
-    @Param('id', new ParseUUIDPipe()) id: string,
-    @Body() updateProjectCategoryDto: Prisma.ProjectCategoryUpdateArgs,
-  ) {
-    return this.projectCategoryService.update(id, updateProjectCategoryDto);
+  @Patch('/update')
+  update(@Body() updateProjectCategoryDto: Prisma.ProjectCategoryUpdateArgs) {
+    return this.projectCategoryService.update(updateProjectCategoryDto);
   }
 
   @Delete(':id')

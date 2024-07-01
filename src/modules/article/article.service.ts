@@ -17,11 +17,11 @@ export class ArticleService {
     };
   }
 
-  findOne(id: string) {
-    return this.prisma.article.findUnique({ where: { id } });
+  findOne(body: Prisma.ArticleFindUniqueArgs) {
+    return this.prisma.article.findUnique(body);
   }
 
-  update(id: string, updateArticleDto: Prisma.ArticleUpdateArgs) {
+  update(updateArticleDto: Prisma.ArticleUpdateArgs) {
     return this.prisma.article.update(updateArticleDto);
   }
 

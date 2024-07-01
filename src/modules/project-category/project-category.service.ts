@@ -17,14 +17,11 @@ export class ProjectCategoryService {
     };
   }
 
-  findOne(id: string) {
-    return this.prisma.projectCategory.findUnique({ where: { id } });
+  findOne(body: Prisma.ProjectCategoryFindUniqueArgs) {
+    return this.prisma.projectCategory.findUnique(body);
   }
 
-  update(
-    id: string,
-    updateProjectCategoryDto: Prisma.ProjectCategoryUpdateArgs,
-  ) {
+  update(updateProjectCategoryDto: Prisma.ProjectCategoryUpdateArgs) {
     return this.prisma.projectCategory.update(updateProjectCategoryDto);
   }
 

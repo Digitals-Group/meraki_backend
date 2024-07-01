@@ -38,17 +38,14 @@ export class ReviewController {
     return this.reviewService.findAll(body);
   }
 
-  @Get(':id')
-  findOne(@Param('id', new ParseUUIDPipe()) id: string) {
-    return this.reviewService.findOne(id);
+  @Post('/read')
+  findOne(@Body() body: Prisma.ReviewFindUniqueArgs) {
+    return this.reviewService.findOne(body);
   }
 
-  @Patch(':id')
-  update(
-    @Param('id', new ParseUUIDPipe()) id: string,
-    @Body() updateReviewDto: Prisma.ReviewUpdateArgs,
-  ) {
-    return this.reviewService.update(id, updateReviewDto);
+  @Patch('/update')
+  update(@Body() updateReviewDto: Prisma.ReviewUpdateArgs) {
+    return this.reviewService.update(updateReviewDto);
   }
 
   @Delete(':id')

@@ -38,17 +38,14 @@ export class ContactController {
     return this.contactService.findAll(body);
   }
 
-  @Get(':id')
-  findOne(@Param('id', new ParseUUIDPipe()) id: string) {
-    return this.contactService.findOne(id);
+  @Post('/read')
+  findOne(@Body() body: Prisma.ContactFindUniqueArgs) {
+    return this.contactService.findOne(body);
   }
 
-  @Patch(':id')
-  update(
-    @Param('id', new ParseUUIDPipe()) id: string,
-    @Body() updateContactDto: Prisma.ContactUpdateArgs,
-  ) {
-    return this.contactService.update(id, updateContactDto);
+  @Patch('/update')
+  update(@Body() updateContactDto: Prisma.ContactUpdateArgs) {
+    return this.contactService.update(updateContactDto);
   }
 
   @Delete(':id')
