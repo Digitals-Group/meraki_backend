@@ -22,7 +22,7 @@ import {
 import { JwtAuthGuard } from 'src/common/guards/auth.guard';
 import { Prisma } from '@prisma/client';
 
-@Controller('roles')
+@Controller('role')
 @ApiBearerAuth()
 @UseGuards(JwtAuthGuard)
 @ApiTags('Roles')
@@ -30,22 +30,22 @@ export class RolesController {
   constructor(private readonly rolesService: RolesService) {}
 
   @Post()
-  create(@Body() createRoleDto: Prisma.RolesCreateArgs) {
+  create(@Body() createRoleDto: Prisma.RoleCreateArgs) {
     return this.rolesService.create(createRoleDto);
   }
 
   @Post('/list')
-  findAll(@Body() body: Prisma.RolesFindManyArgs) {
+  findAll(@Body() body: Prisma.RoleFindManyArgs) {
     return this.rolesService.findAll(body);
   }
 
   @Post('/read')
-  findOne(@Body() body: Prisma.RolesFindUniqueArgs) {
+  findOne(@Body() body: Prisma.RoleFindUniqueArgs) {
     return this.rolesService.findOne(body);
   }
 
   @Patch('/update')
-  update(@Body() updateRoleDto: Prisma.RolesUpdateArgs) {
+  update(@Body() updateRoleDto: Prisma.RoleUpdateArgs) {
     return this.rolesService.update(updateRoleDto);
   }
 

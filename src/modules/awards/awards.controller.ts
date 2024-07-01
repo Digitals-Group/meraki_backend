@@ -14,7 +14,7 @@ import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { JwtAuthGuard } from 'src/common/guards/auth.guard';
 import { Prisma } from '@prisma/client';
 
-@Controller('awards')
+@Controller('award')
 @ApiBearerAuth()
 @UseGuards(JwtAuthGuard)
 @ApiTags('Awards')
@@ -22,22 +22,22 @@ export class AwardsController {
   constructor(private readonly awardsService: AwardsService) {}
 
   @Post()
-  create(@Body() createAwardDto: Prisma.AwardsCreateArgs) {
+  create(@Body() createAwardDto: Prisma.AwardCreateArgs) {
     return this.awardsService.create(createAwardDto);
   }
 
   @Post('/list')
-  findAll(@Body() body: Prisma.AwardsFindManyArgs) {
+  findAll(@Body() body: Prisma.AwardFindManyArgs) {
     return this.awardsService.findAll(body);
   }
 
   @Post('/read')
-  findOne(@Body() body: Prisma.AwardsFindUniqueArgs) {
+  findOne(@Body() body: Prisma.AwardFindUniqueArgs) {
     return this.awardsService.findOne(body);
   }
 
   @Patch('/update')
-  update(@Body() updateAwardDto: Prisma.AwardsUpdateArgs) {
+  update(@Body() updateAwardDto: Prisma.AwardUpdateArgs) {
     return this.awardsService.update(updateAwardDto);
   }
 

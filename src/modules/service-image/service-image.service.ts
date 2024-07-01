@@ -5,26 +5,26 @@ import { Prisma } from '@prisma/client';
 @Injectable()
 export class ServiceImageService {
   constructor(private readonly prisma: PrismaService) {}
-  create(createServiceImageDto: Prisma.ServiceImagesCreateArgs) {
-    return this.prisma.serviceImages.create(createServiceImageDto);
+  create(createServiceImageDto: Prisma.ServiceImageCreateArgs) {
+    return this.prisma.serviceImage.create(createServiceImageDto);
   }
 
-  async findAll(body: Prisma.ServiceImagesFindFirstArgs) {
+  async findAll(body: Prisma.ServiceImageFindFirstArgs) {
     return {
-      data: await this.prisma.serviceImages.findMany(body),
-      count: await this.prisma.serviceImages.count(),
+      data: await this.prisma.serviceImage.findMany(body),
+      count: await this.prisma.serviceImage.count(),
     };
   }
 
-  findOne(body: Prisma.ServiceImagesFindUniqueArgs) {
-    return this.prisma.serviceImages.findUnique(body);
+  findOne(body: Prisma.ServiceImageFindUniqueArgs) {
+    return this.prisma.serviceImage.findUnique(body);
   }
 
-  update(updateServiceImageDto: Prisma.ServiceImagesUpdateArgs) {
-    return this.prisma.serviceImages.update(updateServiceImageDto);
+  update(updateServiceImageDto: Prisma.ServiceImageUpdateArgs) {
+    return this.prisma.serviceImage.update(updateServiceImageDto);
   }
 
   remove(id: string) {
-    return this.prisma.serviceImages.delete({ where: { id } });
+    return this.prisma.serviceImage.delete({ where: { id } });
   }
 }

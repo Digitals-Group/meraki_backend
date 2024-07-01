@@ -7,26 +7,26 @@ import { UpdateAuthDto } from '../auth/dto/update-auth.dto';
 export class RolesService {
   constructor(private readonly prisma: PrismaService) {}
 
-  create(createRoleDto: Prisma.RolesCreateArgs) {
-    return this.prisma.roles.create(createRoleDto);
+  create(createRoleDto: Prisma.RoleCreateArgs) {
+    return this.prisma.role.create(createRoleDto);
   }
 
-  async findAll(body: Prisma.RolesFindManyArgs) {
+  async findAll(body: Prisma.RoleFindManyArgs) {
     return {
-      data: await this.prisma.roles.findMany(body),
-      count: await this.prisma.roles.count(),
+      data: await this.prisma.role.findMany(body),
+      count: await this.prisma.role.count(),
     };
   }
 
-  findOne(body: Prisma.RolesFindUniqueArgs) {
-    return this.prisma.roles.findUnique(body);
+  findOne(body: Prisma.RoleFindUniqueArgs) {
+    return this.prisma.role.findUnique(body);
   }
 
-  update(updateRoleDto: Prisma.RolesUpdateArgs) {
-    return this.prisma.roles.update(updateRoleDto);
+  update(updateRoleDto: Prisma.RoleUpdateArgs) {
+    return this.prisma.role.update(updateRoleDto);
   }
 
   remove(id: string) {
-    return this.prisma.roles.delete({ where: { id } });
+    return this.prisma.role.delete({ where: { id } });
   }
 }

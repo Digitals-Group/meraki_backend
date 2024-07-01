@@ -22,22 +22,22 @@ export class ServiceImageController {
   constructor(private readonly serviceImageService: ServiceImageService) {}
 
   @Post()
-  create(@Body() createServiceImageDto: Prisma.ServiceImagesCreateArgs) {
+  create(@Body() createServiceImageDto: Prisma.ServiceImageCreateArgs) {
     return this.serviceImageService.create(createServiceImageDto);
   }
 
   @Post('/list')
-  findAll(@Body() body: Prisma.ServiceImagesFindManyArgs) {
+  findAll(@Body() body: Prisma.ServiceImageFindManyArgs) {
     return this.serviceImageService.findAll(body);
   }
 
   @Post('/read')
-  findOne(@Body() body: Prisma.ServiceImagesFindUniqueArgs) {
+  findOne(@Body() body: Prisma.ServiceImageFindUniqueArgs) {
     return this.serviceImageService.findOne(body);
   }
 
   @Patch('/update')
-  update(@Body() updateServiceImageDto: Prisma.ServiceImagesUpdateArgs) {
+  update(@Body() updateServiceImageDto: Prisma.ServiceImageUpdateArgs) {
     return this.serviceImageService.update(updateServiceImageDto);
   }
 

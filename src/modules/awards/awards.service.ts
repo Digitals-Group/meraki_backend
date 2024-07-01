@@ -6,26 +6,26 @@ import { Prisma } from '@prisma/client';
 export class AwardsService {
   constructor(private readonly prisma: PrismaService) {}
 
-  create(createAwardDto: Prisma.AwardsCreateArgs) {
-    return this.prisma.awards.create(createAwardDto);
+  create(createAwardDto: Prisma.AwardCreateArgs) {
+    return this.prisma.award.create(createAwardDto);
   }
 
-  async findAll(body: Prisma.AwardsFindManyArgs) {
+  async findAll(body: Prisma.AwardFindManyArgs) {
     return {
-      data: await this.prisma.awards.findMany(body),
-      count: await this.prisma.awards.count(),
+      data: await this.prisma.award.findMany(body),
+      count: await this.prisma.award.count(),
     };
   }
 
-  findOne(body: Prisma.AwardsFindUniqueArgs) {
-    return this.prisma.awards.findUnique(body);
+  findOne(body: Prisma.AwardFindUniqueArgs) {
+    return this.prisma.award.findUnique(body);
   }
 
-  update(updateAwardDto: Prisma.AwardsUpdateArgs) {
-    return this.prisma.awards.update(updateAwardDto);
+  update(updateAwardDto: Prisma.AwardUpdateArgs) {
+    return this.prisma.award.update(updateAwardDto);
   }
 
   remove(id: string) {
-    return this.prisma.awards.delete({ where: { id } });
+    return this.prisma.award.delete({ where: { id } });
   }
 }
