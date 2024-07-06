@@ -35,7 +35,7 @@ import { ServiceModule } from './modules/service/service.module';
     CareerModule,
     CareerApplyModule,
     ServeStaticModule.forRoot({
-      rootPath: join(__dirname, '..'),
+      rootPath: join(__dirname, '..', 'public'),
     }),
     UsersModule,
     RolesModule,
