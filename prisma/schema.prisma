@@ -273,7 +273,12 @@ model Service {
 
 model Team{
   id               String @id @default(uuid())
+  name_uz          String
+  name_en          String
+  name_ru          String
   image            String 
-  JobPosition      String
-  SocialMedia      String
+  jobPosition      String
+  instagramLink    String?
+  telegramLink     String?
+  facebook         String?
 }
