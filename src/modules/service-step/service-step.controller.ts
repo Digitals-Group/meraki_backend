@@ -18,7 +18,7 @@ import { PrismaService } from 'src/prisma/prisma.service';
 @Controller('service-step')
 @ApiBearerAuth()
 @UseGuards(JwtAuthGuard)
-@ApiTags('Service-step')
+
 export class ServiceStepController {
   constructor(private readonly serviceStepService: ServiceStepService) {}
 

@@ -23,6 +23,7 @@ import { ServiceCategoryModule } from './modules/service-category/service-catego
 import { ServiceImageModule } from './modules/service-image/service-image.module';
 import { ServiceStepModule } from './modules/service-step/service-step.module';
 import { ServiceModule } from './modules/service/service.module';
+import { TeamModule } from './modules/team/team.module';
 
 @Module({
   imports: [
@@ -49,6 +50,7 @@ import { ServiceModule } from './modules/service/service.module';
     ServiceImageModule,
     ServiceStepModule,
     ServiceModule,
+    TeamModule,
   ],
   controllers: [AppController],
   providers: [AppService],
