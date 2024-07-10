@@ -16,7 +16,6 @@ import { Prisma } from '@prisma/client';
 @Controller('user')
 // @ApiBearerAuth()
 // @UseGuards(JwtAuthGuard)
-@ApiTags('Users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
