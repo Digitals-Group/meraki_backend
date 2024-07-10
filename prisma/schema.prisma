@@ -184,7 +184,7 @@ model ProjectSolution {
   title_en        String
   description_uz  String
   description_ru  String
-  description_eng String
+  description_en  String
   projectId       String
   project         Project  @relation(fields: [projectId], references: [id])
   createdAt       DateTime @default(now())

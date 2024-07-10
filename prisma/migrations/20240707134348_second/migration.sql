@@ -198,7 +198,7 @@ CREATE TABLE "ProjectSolution" (
     "title_en" TEXT NOT NULL,
     "description_uz" TEXT NOT NULL,
     "description_ru" TEXT NOT NULL,
-    "description_eng" TEXT NOT NULL,
+    "description_en" TEXT NOT NULL,
     "projectId" TEXT NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
