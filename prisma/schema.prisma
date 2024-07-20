@@ -261,9 +261,7 @@ model Service {
   title_en          String
   video             String
   serviceCategoryId String
-  contactId         String?
   serviceCategory   ServiceCategory @relation(fields: [serviceCategoryId], references: [id])
-  contact           Contact?         @relation(fields: [contactId], references: [id])
   serviceImages     ServiceImage[]
   serviceSteps      ServiceStep[]
   contacts          Contact[]       @relation("ServiceContacts")
