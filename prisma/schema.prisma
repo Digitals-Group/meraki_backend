@@ -102,11 +102,10 @@ model Contact {
   company_name String
   email        String    @unique
   phone_number String
-  service      String
   description  String
   take_info    String
   is_Called    Boolean?  @default(false)
-  services     Service[]
+  services     Service[] @relation("ServiceContacts")
   createdAt    DateTime  @default(now())
   updatedAt    DateTime  @updatedAt
 }
@@ -221,16 +220,16 @@ model Project {
 }
 
 /// Service
-model ServiceCategory {
-  id        String    @id @default(uuid())
-  title_uz  String
-  title_ru  String
-  title_en  String
-  image     String
-  services  Service[]
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
-}
+  model ServiceCategory {
+    id        String    @id @default(uuid())
+    title_uz  String
+    title_ru  String
+    title_en  String
+    image     String
+    services  Service[]
+    createdAt DateTime  @default(now())
+    updatedAt DateTime  @updatedAt
+  }
 
 model ServiceImage {
   id        String   @id @default(uuid())
@@ -262,23 +261,23 @@ model Service {
   title_en          String
   video             String
   serviceCategoryId String
-  contactId         String
   serviceCategory   ServiceCategory @relation(fields: [serviceCategoryId], references: [id])
-  contact           Contact         @relation(fields: [contactId], references: [id])
   serviceImages     ServiceImage[]
   serviceSteps      ServiceStep[]
+  contacts          Contact[]       @relation("ServiceContacts")
   createdAt         DateTime        @default(now())
   updatedAt         DateTime        @updatedAt
 }
-
 model Team{
   id               String @id @default(uuid())
   name_uz          String
   name_en          String
   name_ru          String
   image            String 
-  jobPosition      String
+  jobPosition_uz   String
+  jobPosition_en   String
+  jobPosition_ru   String
   instagramLink    String?
   telegramLink     String?
-  facebook         String?
+  facebookLink     String?
 }

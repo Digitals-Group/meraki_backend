@@ -23,7 +23,6 @@ import { Prisma } from '@prisma/client';
 @Controller('project')
 @ApiBearerAuth()
 @UseGuards(JwtAuthGuard)
-@ApiTags('Project')
 export class ProjectController {
   constructor(private readonly projectService: ProjectService) {}
 
