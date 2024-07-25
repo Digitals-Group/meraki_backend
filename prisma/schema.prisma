@@ -96,19 +96,6 @@ model Review {
   updatedAt    DateTime @updatedAt
 }
 
-model Contact {
-  id           String    @id @default(uuid())
-  name         String
-  company_name String
-  email        String    @unique
-  phone_number String
-  description  String
-  take_info    String
-  is_Called    Boolean?  @default(false)
-  services     Service[] @relation("ServiceContacts")
-  createdAt    DateTime  @default(now())
-  updatedAt    DateTime  @updatedAt
-}
 
 model Faq {
   id          String   @id @default(uuid())
@@ -264,10 +251,39 @@ model Service {
   serviceCategory   ServiceCategory @relation(fields: [serviceCategoryId], references: [id])
   serviceImages     ServiceImage[]
   serviceSteps      ServiceStep[]
-  contacts          Contact[]       @relation("ServiceContacts")
+  contacts          ServiceContact[]
   createdAt         DateTime        @default(now())
   updatedAt         DateTime        @updatedAt
 }
+
+model Contact {
+  id           String          @id @default(uuid())
+  name         String
+  company_name String
+  email        String          @unique
+  phone_number String
+  description  String
+  take_info    String
+  is_Called    Boolean?        @default(false)
+  services     ServiceContact[]
+  createdAt    DateTime        @default(now())
+  updatedAt    DateTime        @updatedAt
+}
+
+
+model ServiceContact {
+  id        String   @id @default(uuid())
+  serviceId String
+  contactId String
+  service   Service  @relation(fields: [serviceId], references: [id])
+  contact   Contact  @relation(fields: [contactId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([serviceId, contactId])
+}
+
+
 model Team{
   id               String @id @default(uuid())
   name_uz          String
