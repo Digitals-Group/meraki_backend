@@ -12,7 +12,7 @@ export class ProjectService {
   async findAll(body: Prisma.ProjectFindManyArgs) {
     return {
       data: await this.prisma.project.findMany(body),
-      count: await this.prisma.career.count(),
+      count: await this.prisma.project.count(),
     };
   }
 
