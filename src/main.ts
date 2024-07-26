@@ -14,7 +14,7 @@ async function bootstrap() {
     .setDescription('Some description')
     .setVersion('1.0')
     .addServer(
-      process.env.BASE_URL || 'http://209.38.234.216:3001',
+      process.env.BASE_URL || 'http://209.38.234.216:9000',
       'Render Environment',
     )
     .addServer('http://localhost:3001', 'Local Environment')
