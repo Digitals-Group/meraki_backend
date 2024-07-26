@@ -296,4 +296,6 @@ model Team{
   instagramLink    String?
   telegramLink     String?
   facebookLink     String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }

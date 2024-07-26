@@ -99,23 +99,6 @@ CREATE TABLE "Review" (
 );
 
 -- CreateTable
-CREATE TABLE "Contact" (
-    "id" TEXT NOT NULL,
-    "name" TEXT NOT NULL,
-    "company_name" TEXT NOT NULL,
-    "email" TEXT NOT NULL,
-    "phone_number" TEXT NOT NULL,
-    "service" TEXT NOT NULL,
-    "description" TEXT NOT NULL,
-    "take_info" TEXT NOT NULL,
-    "is_Called" BOOLEAN DEFAULT false,
-    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updatedAt" TIMESTAMP(3) NOT NULL,
-
-    CONSTRAINT "Contact_pkey" PRIMARY KEY ("id")
-);
-
--- CreateTable
 CREATE TABLE "Faq" (
     "id" TEXT NOT NULL,
     "question_uz" TEXT NOT NULL,
@@ -285,11 +268,56 @@ CREATE TABLE "Service" (
     "title_en" TEXT NOT NULL,
     "video" TEXT NOT NULL,
     "serviceCategoryId" TEXT NOT NULL,
-    "contactId" TEXT NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
 
     CONSTRAINT "Service_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "Contact" (
+    "id" TEXT NOT NULL,
+    "name" TEXT NOT NULL,
+    "company_name" TEXT NOT NULL,
+    "email" TEXT NOT NULL,
+    "phone_number" TEXT NOT NULL,
+    "description" TEXT NOT NULL,
+    "take_info" TEXT NOT NULL,
+    "is_Called" BOOLEAN DEFAULT false,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
+
+    CONSTRAINT "Contact_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "ServiceContact" (
+    "id" TEXT NOT NULL,
+    "serviceId" TEXT NOT NULL,
+    "contactId" TEXT NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
+
+    CONSTRAINT "ServiceContact_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "Team" (
+    "id" TEXT NOT NULL,
+    "name_uz" TEXT NOT NULL,
+    "name_en" TEXT NOT NULL,
+    "name_ru" TEXT NOT NULL,
+    "image" TEXT NOT NULL,
+    "jobPosition_uz" TEXT NOT NULL,
+    "jobPosition_en" TEXT NOT NULL,
+    "jobPosition_ru" TEXT NOT NULL,
+    "instagramLink" TEXT,
+    "telegramLink" TEXT,
+    "facebookLink" TEXT,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
+
+    CONSTRAINT "Team_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateIndex
@@ -320,9 +348,6 @@ CREATE UNIQUE INDEX "Award_title_ru_key" ON "Award"("title_ru");
 CREATE UNIQUE INDEX "Award_title_en_key" ON "Award"("title_en");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "Contact_email_key" ON "Contact"("email");
-
--- CreateIndex
 CREATE UNIQUE INDEX "CareerApply_email_key" ON "CareerApply"("email");
 
 -- CreateIndex
@@ -333,6 +358,12 @@ CREATE UNIQUE INDEX "Article_title_ru_key" ON "Article"("title_ru");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "Article_title_en_key" ON "Article"("title_en");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "Contact_email_key" ON "Contact"("email");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "ServiceContact_serviceId_contactId_key" ON "ServiceContact"("serviceId", "contactId");
 
 -- AddForeignKey
 ALTER TABLE "Permission" ADD CONSTRAINT "Permission_role_id_fkey" FOREIGN KEY ("role_id") REFERENCES "Role"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
@@ -362,4 +393,7 @@ ALTER TABLE "ServiceStep" ADD CONSTRAINT "ServiceStep_serviceId_fkey" FOREIGN KE
 ALTER TABLE "Service" ADD CONSTRAINT "Service_serviceCategoryId_fkey" FOREIGN KEY ("serviceCategoryId") REFERENCES "ServiceCategory"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Service" ADD CONSTRAINT "Service_contactId_fkey" FOREIGN KEY ("contactId") REFERENCES "Contact"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "ServiceContact" ADD CONSTRAINT "ServiceContact_serviceId_fkey" FOREIGN KEY ("serviceId") REFERENCES "Service"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "ServiceContact" ADD CONSTRAINT "ServiceContact_contactId_fkey" FOREIGN KEY ("contactId") REFERENCES "Contact"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
