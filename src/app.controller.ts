@@ -47,8 +47,9 @@ export class AppController {
     return {
       statusCode: 200,
       data:
-        process.env.BASE_URL ||
-        'https://api.tasksforwork.uz' + 'img/' + file.originalname,
+        (process.env.BASE_URL || 'https://api.tasksforwork.uz') +
+        'img/' +
+        file.originalname,
     };
   }
 }
