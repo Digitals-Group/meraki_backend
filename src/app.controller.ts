@@ -48,7 +48,7 @@ export class AppController {
       statusCode: 200,
       data:
         process.env.BASE_URL ||
-        'http://209.38.234.216:3001' + 'img/' + file.originalname,
+        'http://209.38.234.216:9000' + 'img/' + file.originalname,
     };
   }
 }
