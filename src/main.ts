@@ -17,7 +17,7 @@ async function bootstrap() {
       process.env.BASE_URL || 'http://209.38.234.216:9000',
       'Render Environment',
     )
-    .addServer('http://localhost:3001', 'Local Environment')
+    .addServer('http://localhost:9000', 'Local Environment')
     .addTag('Some tag')
     .addBearerAuth()
     .build();
