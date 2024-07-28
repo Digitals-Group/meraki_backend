@@ -41,6 +41,7 @@ export class AppController {
           cb(null, file.originalname);
         },
       }),
+      limits: { fileSize: 50 * 1024 * 1024 },
     }),
   )
   async local(@UploadedFile() file: Express.Multer.File) {
