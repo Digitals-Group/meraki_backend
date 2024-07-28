@@ -260,7 +260,7 @@ model Contact {
   id           String          @id @default(uuid())
   name         String
   company_name String
-  email        String          @unique
+  email        String          
   phone_number String
   description  String
   take_info    String
