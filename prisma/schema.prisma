@@ -251,7 +251,7 @@ model Service {
   serviceCategory   ServiceCategory @relation(fields: [serviceCategoryId], references: [id])
   serviceImages     ServiceImage[]
   serviceSteps      ServiceStep[]
-  contacts          ServiceContact[]
+  contacts          Contact[]
   createdAt         DateTime        @default(now())
   updatedAt         DateTime        @updatedAt
 }
@@ -265,22 +265,9 @@ model Contact {
   description  String
   take_info    String
   is_Called    Boolean?        @default(false)
-  services     ServiceContact[]
+  services     Service[]
   createdAt    DateTime        @default(now())
   updatedAt    DateTime        @updatedAt
-}
-
-
-model ServiceContact {
-  id        String   @id @default(uuid())
-  serviceId String
-  contactId String
-  service   Service  @relation(fields: [serviceId], references: [id])
-  contact   Contact  @relation(fields: [contactId], references: [id])
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  @@unique([serviceId, contactId])
 }
 
 
