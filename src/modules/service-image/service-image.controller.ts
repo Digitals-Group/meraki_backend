@@ -15,8 +15,6 @@ import { JwtAuthGuard } from 'src/common/guards/auth.guard';
 import { Prisma } from '@prisma/client';
 
 @Controller('service-image')
-@ApiBearerAuth()
-@UseGuards(JwtAuthGuard)
 @ApiTags('Service-images')
 export class ServiceImageController {
   constructor(private readonly serviceImageService: ServiceImageService) {}

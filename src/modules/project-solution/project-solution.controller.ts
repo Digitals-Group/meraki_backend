@@ -21,8 +21,6 @@ import { Prisma } from '@prisma/client';
 import { JwtAuthGuard } from 'src/common/guards/auth.guard';
 
 @Controller('project-solution')
-@ApiBearerAuth()
-@UseGuards(JwtAuthGuard)
 @ApiTags('Project-Solution')
 export class ProjectSolutionController {
   constructor(

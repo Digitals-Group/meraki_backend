@@ -22,8 +22,6 @@ import { JwtAuthGuard } from 'src/common/guards/auth.guard';
 import { Prisma } from '@prisma/client';
 
 @Controller('review')
-@ApiBearerAuth()
-@UseGuards(JwtAuthGuard)
 @ApiTags('Review')
 export class ReviewController {
   constructor(private readonly reviewService: ReviewService) {}

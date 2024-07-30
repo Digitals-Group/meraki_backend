@@ -21,8 +21,6 @@ import { JwtAuthGuard } from 'src/common/guards/auth.guard';
 import { Prisma } from '@prisma/client';
 
 @Controller('career-apply')
-@ApiBearerAuth()
-@UseGuards(JwtAuthGuard)
 @ApiTags('CareerApply')
 export class CareerApplyController {
   constructor(private readonly careerApplyService: CareerApplyService) {}

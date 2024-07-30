@@ -15,8 +15,6 @@ import { ApiBearerAuth, ApiOkResponse, ApiTags } from '@nestjs/swagger';
 import { JwtAuthGuard } from 'src/common/guards/auth.guard';
 
 @Controller('service-category')
-@ApiBearerAuth()
-@UseGuards(JwtAuthGuard)
 @ApiTags('Service-category')
 export class ServiceCategoryController {
   constructor(

@@ -22,8 +22,6 @@ import { JwtAuthGuard } from 'src/common/guards/auth.guard';
 import { Prisma } from '@prisma/client';
 
 @Controller('blog')
-@ApiBearerAuth()
-@UseGuards(JwtAuthGuard)
 @ApiTags('Blogs')
 export class BlogController {
   constructor(private readonly blogService: BlogService) {}

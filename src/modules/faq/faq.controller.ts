@@ -22,8 +22,6 @@ import { JwtAuthGuard } from 'src/common/guards/auth.guard';
 import { Prisma } from '@prisma/client';
 
 @Controller('faq')
-@ApiBearerAuth()
-@UseGuards(JwtAuthGuard)
 @ApiTags('FAQ')
 export class FaqController {
   constructor(private readonly faqService: FaqService) {}

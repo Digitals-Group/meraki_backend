@@ -15,8 +15,6 @@ import { JwtAuthGuard } from 'src/common/guards/auth.guard';
 import { Prisma } from '@prisma/client';
 
 @Controller('service')
-@ApiBearerAuth()
-@UseGuards(JwtAuthGuard)
 @ApiTags('Service')
 export class ServiceController {
   constructor(private readonly serviceService: ServiceService) {}

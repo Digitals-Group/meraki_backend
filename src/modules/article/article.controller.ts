@@ -16,8 +16,6 @@ import { ApiBearerAuth, ApiOkResponse, ApiTags } from '@nestjs/swagger';
 import { JwtAuthGuard } from 'src/common/guards/auth.guard';
 
 @Controller('article')
-@ApiBearerAuth()
-@UseGuards(JwtAuthGuard)
 @ApiTags('Article')
 export class ArticleController {
   constructor(private readonly articleService: ArticleService) {}
