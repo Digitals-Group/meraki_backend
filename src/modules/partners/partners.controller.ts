@@ -27,6 +27,8 @@ import { Prisma } from '@prisma/client';
 export class PartnersController {
   constructor(private readonly partnersService: PartnersService) {}
 
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard)
   @Post()
   create(@Body() createPartnerDto: Prisma.PartnerCreateArgs) {
     return this.partnersService.create(createPartnerDto);
@@ -42,11 +44,15 @@ export class PartnersController {
     return this.partnersService.findOne(body);
   }
 
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard)
   @Patch('/update')
   update(@Body() updatePartnerDto: Prisma.PartnerUpdateArgs) {
     return this.partnersService.update(updatePartnerDto);
   }
 
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard)
   @Delete(':id')
   remove(@Param('id', new ParseUUIDPipe()) id: string) {
     return this.partnersService.remove(id);

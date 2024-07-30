@@ -19,6 +19,8 @@ import { Prisma } from '@prisma/client';
 export class TeamController {
   constructor(private readonly teamService: TeamService) {}
 
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard)
   @Post()
   create(@Body() createTeamDto: Prisma.TeamCreateArgs) {
     return this.teamService.create(createTeamDto);
@@ -39,6 +41,8 @@ export class TeamController {
     return this.teamService.update(updateTeamDto);
   }
 
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard)
   @Delete(':id')
   remove(@Param('id', new ParseUUIDPipe()) id: string) {
     return this.teamService.remove(id);

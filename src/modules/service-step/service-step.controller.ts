@@ -18,10 +18,11 @@ import { PrismaService } from 'src/prisma/prisma.service';
 @Controller('service-step')
 @ApiBearerAuth()
 @UseGuards(JwtAuthGuard)
-
 export class ServiceStepController {
   constructor(private readonly serviceStepService: ServiceStepService) {}
 
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard)
   @Post()
   create(@Body() createServiceStepDto: Prisma.ServiceStepCreateArgs) {
     return this.serviceStepService.create(createServiceStepDto);
@@ -37,11 +38,15 @@ export class ServiceStepController {
     return this.serviceStepService.findOne(body);
   }
 
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard)
   @Patch('/update')
   update(@Body() updateServiceStepDto: Prisma.ServiceStepUpdateArgs) {
     return this.serviceStepService.update(updateServiceStepDto);
   }
 
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard)
   @Delete(':id')
   remove(@Param('id', new ParseUUIDPipe()) id: string) {
     return this.serviceStepService.remove(id);

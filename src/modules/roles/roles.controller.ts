@@ -29,6 +29,8 @@ import { Prisma } from '@prisma/client';
 export class RolesController {
   constructor(private readonly rolesService: RolesService) {}
 
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard)
   @Post()
   create(@Body() createRoleDto: Prisma.RoleCreateArgs) {
     return this.rolesService.create(createRoleDto);
@@ -44,11 +46,15 @@ export class RolesController {
     return this.rolesService.findOne(body);
   }
 
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard)
   @Patch('/update')
   update(@Body() updateRoleDto: Prisma.RoleUpdateArgs) {
     return this.rolesService.update(updateRoleDto);
   }
 
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard)
   @Delete(':id')
   remove(@Param('id', new ParseUUIDPipe()) id: string) {
     return this.rolesService.remove(id);

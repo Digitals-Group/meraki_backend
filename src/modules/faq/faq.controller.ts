@@ -28,6 +28,8 @@ import { Prisma } from '@prisma/client';
 export class FaqController {
   constructor(private readonly faqService: FaqService) {}
 
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard)
   @Post()
   create(@Body() createFaqDto: Prisma.FaqCreateArgs) {
     return this.faqService.create(createFaqDto);
@@ -43,11 +45,15 @@ export class FaqController {
     return this.faqService.findOne(body);
   }
 
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard)
   @Patch('/update')
   update(@Body() updateFaqDto: Prisma.FaqUpdateArgs) {
     return this.faqService.update(updateFaqDto);
   }
 
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard)
   @Delete(':id')
   remove(@Param('id', new ParseUUIDPipe()) id: string) {
     return this.faqService.remove(id);

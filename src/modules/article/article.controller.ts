@@ -22,6 +22,8 @@ import { JwtAuthGuard } from 'src/common/guards/auth.guard';
 export class ArticleController {
   constructor(private readonly articleService: ArticleService) {}
 
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard)
   @Post()
   create(@Body() createArticleDto: Prisma.ArticleCreateArgs) {
     return this.articleService.create(createArticleDto);
@@ -37,11 +39,15 @@ export class ArticleController {
     return this.articleService.findOne(body);
   }
 
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard)
   @Patch('/update')
   update(@Body() updateArticleDto: Prisma.ArticleUpdateArgs) {
     return this.articleService.update(updateArticleDto);
   }
 
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard)
   @Delete(':id')
   remove(@Param('id', new ParseUUIDPipe()) id: string) {
     return this.articleService.remove(id);

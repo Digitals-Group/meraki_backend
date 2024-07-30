@@ -29,6 +29,8 @@ export class ProjectSolutionController {
     private readonly projectSolutionService: ProjectSolutionService,
   ) {}
 
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard)
   @Post()
   create(@Body() createProjectSolutionDto: Prisma.ProjectSolutionCreateArgs) {
     return this.projectSolutionService.create(createProjectSolutionDto);
@@ -45,11 +47,15 @@ export class ProjectSolutionController {
     return this.projectSolutionService.findOne(body);
   }
 
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard)
   @Patch('/update')
   update(@Body() updateProjectSolutionDto: Prisma.ProjectSolutionUpdateArgs) {
     return this.projectSolutionService.update(updateProjectSolutionDto);
   }
 
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard)
   @Delete(':id')
   remove(@Param('id', new ParseUUIDPipe()) id: string) {
     return this.projectSolutionService.remove(id);

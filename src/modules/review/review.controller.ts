@@ -28,6 +28,8 @@ import { Prisma } from '@prisma/client';
 export class ReviewController {
   constructor(private readonly reviewService: ReviewService) {}
 
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard)
   @Post()
   create(@Body() createReviewDto: Prisma.ReviewCreateArgs) {
     return this.reviewService.create(createReviewDto);
@@ -43,11 +45,15 @@ export class ReviewController {
     return this.reviewService.findOne(body);
   }
 
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard)
   @Patch('/update')
   update(@Body() updateReviewDto: Prisma.ReviewUpdateArgs) {
     return this.reviewService.update(updateReviewDto);
   }
 
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard)
   @Delete(':id')
   remove(@Param('id', new ParseUUIDPipe()) id: string) {
     return this.reviewService.remove(id);

@@ -28,6 +28,8 @@ import { Prisma } from '@prisma/client';
 export class BlogController {
   constructor(private readonly blogService: BlogService) {}
 
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard)
   @Post()
   create(@Body() createBlogDto: Prisma.BlogCreateArgs) {
     return this.blogService.create(createBlogDto);
@@ -43,11 +45,15 @@ export class BlogController {
     return this.blogService.findOne(body);
   }
 
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard)
   @Patch('/update')
   update(@Body() updateBlogDto: Prisma.BlogUpdateArgs) {
     return this.blogService.update(updateBlogDto);
   }
 
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard)
   @Delete(':id')
   remove(@Param('id', new ParseUUIDPipe()) id: string) {
     return this.blogService.remove(id);

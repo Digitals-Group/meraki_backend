@@ -15,12 +15,11 @@ import { JwtAuthGuard } from 'src/common/guards/auth.guard';
 import { Prisma } from '@prisma/client';
 
 @Controller('award')
-@ApiBearerAuth()
-@UseGuards(JwtAuthGuard)
-@ApiTags('Awards')
 export class AwardsController {
   constructor(private readonly awardsService: AwardsService) {}
 
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard)
   @Post()
   create(@Body() createAwardDto: Prisma.AwardCreateArgs) {
     return this.awardsService.create(createAwardDto);
@@ -36,11 +35,15 @@ export class AwardsController {
     return this.awardsService.findOne(body);
   }
 
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard)
   @Patch('/update')
   update(@Body() updateAwardDto: Prisma.AwardUpdateArgs) {
     return this.awardsService.update(updateAwardDto);
   }
 
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard)
   @Delete(':id')
   remove(@Param('id', new ParseUUIDPipe()) id: string) {
     return this.awardsService.remove(id);

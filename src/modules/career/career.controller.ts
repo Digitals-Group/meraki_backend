@@ -28,6 +28,8 @@ import { Prisma } from '@prisma/client';
 export class CareerController {
   constructor(private readonly careerService: CareerService) {}
 
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard)
   @Post()
   create(@Body() createCareerDto: Prisma.CareerCreateArgs) {
     return this.careerService.create(createCareerDto);
@@ -43,11 +45,15 @@ export class CareerController {
     return this.careerService.findOne(body);
   }
 
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard)
   @Patch('/update')
   update(@Body() updateCareerDto: Prisma.CareerUpdateArgs) {
     return this.careerService.update(updateCareerDto);
   }
 
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard)
   @Delete(':id')
   remove(@Param('id', new ParseUUIDPipe()) id: string) {
     return this.careerService.remove(id);

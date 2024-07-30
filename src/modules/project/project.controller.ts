@@ -26,6 +26,8 @@ import { Prisma } from '@prisma/client';
 export class ProjectController {
   constructor(private readonly projectService: ProjectService) {}
 
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard)
   @Post()
   create(@Body() createProjectDto: Prisma.ProjectCreateArgs) {
     return this.projectService.create(createProjectDto);
@@ -41,11 +43,15 @@ export class ProjectController {
     return this.projectService.findOne(body);
   }
 
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard)
   @Patch('/update')
   update(@Body() updateProjectDto: Prisma.ProjectUpdateArgs) {
     return this.projectService.update(updateProjectDto);
   }
 
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard)
   @Delete(':id')
   remove(@Param('id', new ParseUUIDPipe()) id: string) {
     return this.projectService.remove(id);

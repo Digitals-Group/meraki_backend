@@ -19,6 +19,8 @@ import { Prisma } from '@prisma/client';
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard)
   @Post()
   create(@Body() createUserDto: Prisma.UserCreateArgs) {
     return this.usersService.create(createUserDto);
@@ -34,11 +36,15 @@ export class UsersController {
     return this.usersService.findOne(body);
   }
 
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard)
   @Patch('/update')
   update(@Body() updateUserDto: Prisma.UserUpdateArgs) {
     return this.usersService.update(updateUserDto);
   }
 
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard)
   @Delete(':id')
   remove(@Param('id', new ParseUUIDPipe()) id: string) {
     return this.usersService.remove(id);

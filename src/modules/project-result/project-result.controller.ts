@@ -27,6 +27,8 @@ import { JwtAuthGuard } from 'src/common/guards/auth.guard';
 export class ProjectResultController {
   constructor(private readonly projectResultService: ProjectResultService) {}
 
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard)
   @Post()
   create(@Body() createProjectResultDto: Prisma.ProjectResultCreateArgs) {
     return this.projectResultService.create(createProjectResultDto);
@@ -42,11 +44,15 @@ export class ProjectResultController {
     return this.projectResultService.findOne(body);
   }
 
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard)
   @Patch('/update')
   update(@Body() updateProjectResultDto: Prisma.ProjectResultUpdateArgs) {
     return this.projectResultService.update(updateProjectResultDto);
   }
 
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard)
   @Delete(':id')
   remove(@Param('id', new ParseUUIDPipe()) id: string) {
     return this.projectResultService.remove(id);

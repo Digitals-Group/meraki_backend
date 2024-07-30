@@ -21,6 +21,8 @@ import { Prisma } from '@prisma/client';
 export class ServiceController {
   constructor(private readonly serviceService: ServiceService) {}
 
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard)
   @Post()
   create(@Body() createServiceDto: Prisma.ServiceCreateArgs) {
     return this.serviceService.create(createServiceDto);
@@ -36,11 +38,15 @@ export class ServiceController {
     return this.serviceService.findOne(body);
   }
 
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard)
   @Patch('/update')
   update(@Body() updateServiceDto: Prisma.ServiceUpdateArgs) {
     return this.serviceService.update(updateServiceDto);
   }
 
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard)
   @Delete(':id')
   remove(@Param('id', new ParseUUIDPipe()) id: string) {
     return this.serviceService.remove(id);

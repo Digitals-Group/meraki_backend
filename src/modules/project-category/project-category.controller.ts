@@ -29,6 +29,8 @@ export class ProjectCategoryController {
     private readonly projectCategoryService: ProjectCategoryService,
   ) {}
 
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard)
   @Post()
   create(@Body() createProjectCategoryDto: Prisma.ProjectCategoryCreateArgs) {
     return this.projectCategoryService.create(createProjectCategoryDto);
@@ -44,11 +46,15 @@ export class ProjectCategoryController {
     return this.projectCategoryService.findOne(body);
   }
 
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard)
   @Patch('/update')
   update(@Body() updateProjectCategoryDto: Prisma.ProjectCategoryUpdateArgs) {
     return this.projectCategoryService.update(updateProjectCategoryDto);
   }
 
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard)
   @Delete(':id')
   remove(@Param('id', new ParseUUIDPipe()) id: string) {
     return this.projectCategoryService.remove(id);

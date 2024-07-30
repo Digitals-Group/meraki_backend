@@ -23,6 +23,8 @@ export class ServiceCategoryController {
     private readonly serviceCategoryService: ServiceCategoryService,
   ) {}
 
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard)
   @Post()
   create(@Body() createServiceCategoryDto: Prisma.ServiceCategoryCreateArgs) {
     return this.serviceCategoryService.create(createServiceCategoryDto);
@@ -38,11 +40,15 @@ export class ServiceCategoryController {
     return this.serviceCategoryService.findOne(body);
   }
 
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard)
   @Patch('/update')
   update(@Body() updateServiceCategoryDto: Prisma.ServiceCategoryUpdateArgs) {
     return this.serviceCategoryService.update(updateServiceCategoryDto);
   }
 
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard)
   @Delete(':id')
   remove(@Param('id', new ParseUUIDPipe()) id: string) {
     return this.serviceCategoryService.remove(id);
